@@ -282,7 +282,7 @@ MonoBehaviour:
   maxHealth: 5
   alreadyHurt: 0
   speed: 0.7
-  jumpForce: 1.8
+  jumpForce: 2.1
   attackRange: 0.15
   immunity: 0
   enemyLayer:

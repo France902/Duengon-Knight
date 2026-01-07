@@ -32,7 +32,6 @@ public class WaveManager : MonoBehaviour
 
         if (isSpawning && !waveInProgress)
         {
-            Debug.Log(spawnParent.transform.childCount);
             if (spawnParent != null && spawnParent.transform.childCount == 0)
             {
                 StartCoroutine(SpawnWaveRoutine());

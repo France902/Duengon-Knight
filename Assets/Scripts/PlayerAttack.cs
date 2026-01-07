@@ -198,7 +198,11 @@ public class PlayerAttack : MonoBehaviour
     {
         if(!immunity)
         {
-            if(health > 0) health--;
+            if (health > 0) health--;
+            if(health == 0) {
+                anim.SetBool("die", true);
+                return;
+            }
 
             alreadyHurt = true;
             immunity = true;
@@ -250,6 +254,13 @@ public class PlayerAttack : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
         // Se usi attackPoint.position, usa quella qui sopra
+    }
+
+    public void Die()
+    {
+        Destroy(gameObject);
+        anim.SetBool("die", false);
+        
     }
 
 }

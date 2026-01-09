@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
@@ -8,6 +9,7 @@ public class PlayerAttack : MonoBehaviour
     private WeaponLogic weaponLogic;
     private HurtBoxLogic hurtBoxLogic;
     private MovementColliderLogic movementColliderLogic;
+    public HUDManager hudManager;
 
     public bool isAttacking = false;
     public bool IsAttacking => isAttacking;
@@ -27,6 +29,11 @@ public class PlayerAttack : MonoBehaviour
     public float attackRange = 1.2f;
     public bool immunity = false;
     public LayerMask enemyLayer;
+
+    public float shutdownAttack1 = 0.3f;
+    public float shutdownAttack2 = 1f;
+
+    private string typeAttack;
 
     void Awake()
     {
@@ -80,23 +87,25 @@ public class PlayerAttack : MonoBehaviour
         }
 
         // ATTACK 1
-        if (!isAttacking && Input.GetMouseButtonDown(0))
+        if ((!isAttacking || typeAttack == "heavy_confirmed") && Input.GetMouseButtonDown(0))
         {
             isAttacking = true;
             ResetWeapon();
             attackRange = 0.15f;
             damage = 1;
             anim.SetTrigger("attack");
+            typeAttack = "base";
         }
 
         // ATTACK 2
-        if (!isAttacking && Input.GetMouseButtonDown(1))
+        if (!isAttacking && Input.GetMouseButtonDown(1) && hudManager.timerHeavy == 0)
         {
             isAttacking = true;
             ResetWeapon();
             attackRange = 0.26f;
             damage = 2;
             anim.SetTrigger("attack2");
+            typeAttack = "heavy";
         }
     }
 
@@ -149,17 +158,40 @@ public class PlayerAttack : MonoBehaviour
 
     public void EndAction()
     {
+        StartCoroutine(ExecuteAttackShutdown());
+    }
+
+    public void confirmHeavy()
+    {
+
+        typeAttack = "heavy_confirmed";
+    }
+
+    public IEnumerator ExecuteAttackShutdown()
+    {
+        // Aspetta per il numero di secondi specificato in shutdownAttack
+        switch (typeAttack)
+        {
+            case "base":
+                yield return new WaitForSeconds(shutdownAttack1);
+                break;
+            case "heavy":
+                yield return new WaitForSeconds(shutdownAttack2);
+                break;
+        }
+
         isAttacking = false;
 
         // Se è null, prova a cercarlo un'ultima volta
         if (weaponLogic == null)
         {
-            weaponLogic = GetComponentInChildren<WeaponLogic>(true); // 'true' include anche oggetti disattivati
+            weaponLogic = GetComponentInChildren<WeaponLogic>(true);
         }
 
         if (weaponLogic != null)
         {
-            weaponLogic.SetEnemyExclusion(true); // Qui metti false per resettare, o true per escludere
+            // Imposta l'esclusione (true per escludere i nemici dal colpo)
+            weaponLogic.SetEnemyExclusion(true);
         }
     }
 
@@ -261,6 +293,11 @@ public class PlayerAttack : MonoBehaviour
         Destroy(gameObject);
         anim.SetBool("die", false);
         
+    }
+
+    public string getTypeAttack()
+    {
+        return typeAttack;
     }
 
 }

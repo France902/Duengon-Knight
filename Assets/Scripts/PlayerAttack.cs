@@ -10,6 +10,7 @@ public class PlayerAttack : MonoBehaviour
     private HurtBoxLogic hurtBoxLogic;
     private MovementColliderLogic movementColliderLogic;
     public HUDManager hudManager;
+    public RoundManager roundManager;
 
     public bool isAttacking = false;
     public bool IsAttacking => isAttacking;
@@ -47,6 +48,12 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
+        if (roundManager.isCutscene)
+        {
+            anim.SetBool("run", false);
+            return;
+        }
+
         // INPUT MOVIMENTO
         moveInput = Input.GetAxisRaw("Horizontal");
 

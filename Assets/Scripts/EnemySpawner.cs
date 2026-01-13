@@ -9,6 +9,7 @@ public class WaveManager : MonoBehaviour
     public int enemiesPerWave = 3;
     public int extraEnemiesPerWave = 2;
     public float delayBetweenEnemies = 0.5f;
+    public RoundManager roundManager;
 
     private GameObject spawnParent;
     private bool isSpawning = true;
@@ -22,21 +23,31 @@ public class WaveManager : MonoBehaviour
             Debug.LogError("Oggetto 'World Enemies' non trovato!");
     }
 
-    void Update()
+    void  Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             isSpawning = !isSpawning;
             Debug.Log(isSpawning ? "Sistema Ondate Attivo" : "Sistema Ondate Fermato");
         }
 
-        if (isSpawning && !waveInProgress)
+        if (isSpawning && !waveInProgress && !roundManager.isCutscene)
         {
             if (spawnParent != null && spawnParent.transform.childCount == 0)
             {
-                StartCoroutine(SpawnWaveRoutine());
+                roundManager.setIsCutscene(true);
+                StartCoroutine(WaitAndThenSpawn());
             }
         }
+    }
+
+    IEnumerator WaitAndThenSpawn()
+    {
+        // 1. Aspetta che la scritta finisca (se ShowRoundSequence è una Coroutine)
+        yield return new WaitForSeconds(roundManager.displayDuration*1.6f);
+
+        // 2. Una volta finita la prima, parte la seconda
+        yield return StartCoroutine(SpawnWaveRoutine());
     }
 
     IEnumerator SpawnWaveRoutine()

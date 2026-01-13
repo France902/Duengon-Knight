@@ -13,6 +13,7 @@ public class EnemySlimeAI : MonoBehaviour
     private SpriteRenderer sr;
     private Transform playerTransform;
     private Animator anim;
+    private RoundManager roundManager;
     private bool isDead = false;
     private bool inTouchPlayer = false;
 
@@ -20,10 +21,16 @@ public class EnemySlimeAI : MonoBehaviour
     private enum State { Idle, Chase }
     private State currentState = State.Idle;
 
+    private void Start()
+    {
+        roundManager = GameObject.FindAnyObjectByType<RoundManager>();
+    }
+
     void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
 
         if (playerObj != null)
@@ -37,6 +44,7 @@ public class EnemySlimeAI : MonoBehaviour
     void Update()
     {
         if (isDead) return;
+        if (roundManager.isCutscene) return;
 
         float distance = Vector2.Distance(transform.position, playerTransform.position);
 

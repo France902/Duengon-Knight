@@ -57,16 +57,14 @@ public class HUDManager : MonoBehaviour
             UItext.alpha = 1f;
 
             // Colore Rosso durante il cooldown
-            bgImage.color = Color.red;
+            bgImage.color = Color.gray;
         }
         else
         {
             timer = 0;
             UItext.text = ""; // O lascia vuoto ""
             UItext.alpha = 0.5f;
-
-            // Colore Verde quando è pronto
-            bgImage.color = Color.green;
+            bgImage.color = Color.white;
         }
     }
 }

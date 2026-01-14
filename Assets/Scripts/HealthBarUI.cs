@@ -13,7 +13,7 @@ public class HealthBarUI : MonoBehaviour
 
         if (player != null)
         {
-            playerScript = player.GetComponent<PlayerAttack>();
+            playerScript = GameObject.FindObjectOfType<PlayerAttack>();
         }
     }
 
@@ -23,7 +23,7 @@ public class HealthBarUI : MonoBehaviour
         {
             // Calcoliamo il rapporto tra salute attuale e massima
             // Poiché Fill Amount va da 0 a 1, dividiamo la salute per 5
-
+            
             float fillValue = playerScript.health / playerScript.maxHealth;
 
             // Applichiamo il valore all'immagine

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemySlimeAI : MonoBehaviour
+public class EnemyAIGeneric : MonoBehaviour
 {
     public float speed = 2f;
     public float chaseDistance = 4f;
@@ -66,14 +66,13 @@ public class EnemySlimeAI : MonoBehaviour
         // 1. Controllo morte: se è morto, esce subito e non fa nulla
         if (isDead)
         {
-            // Opzionale: assicurati che l'animazione di movimento sia spenta
-            // anim.SetBool("move", false); 
+            
             return;
         }
 
         // 2. Logica di orientamento (eseguita solo se vivo)
         float side = transform.position.x < playerTransform.position.x ? -1f : 1f;
-        sr.flipX = (playerTransform.position.x - transform.position.x) >= 0;
+        sr.flipX = (playerTransform.position.x - transform.position.x) <= 0;
 
         Vector2 targetPos = new Vector2(
             playerTransform.position.x + side * stopOffset,
@@ -85,12 +84,14 @@ public class EnemySlimeAI : MonoBehaviour
         // 3. Controllo distanza
         if (distToTarget <= stopTolerance)
         {
-
+            anim.SetBool("idle", true);
+            anim.SetBool("move", false);
             inTouchPlayer = true;
-
             return;
         } else inTouchPlayer = false;
 
+        anim.SetBool("idle", false);
+        anim.SetBool("move", true);
         // 4. Movimento (eseguito solo se vivo e lontano)
         Vector2 dir = (targetPos - (Vector2)transform.position).normalized;
         

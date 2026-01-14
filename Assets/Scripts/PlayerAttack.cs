@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -314,6 +315,10 @@ public class PlayerAttack : MonoBehaviour
         return typeAttack;
     }
 
+    internal void takeHit(EnemyAIGeneric enemyAIGeneric)
+    {
+        throw new NotImplementedException();
+    }
 }
 
 

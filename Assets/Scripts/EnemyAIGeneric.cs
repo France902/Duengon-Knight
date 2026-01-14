@@ -72,7 +72,7 @@ public class EnemyAIGeneric : MonoBehaviour
 
         // 2. Logica di orientamento (eseguita solo se vivo)
         float side = transform.position.x < playerTransform.position.x ? -1f : 1f;
-        sr.flipX = (playerTransform.position.x - transform.position.x) >= 0;
+        sr.flipX = (playerTransform.position.x - transform.position.x) <= 0;
 
         Vector2 targetPos = new Vector2(
             playerTransform.position.x + side * stopOffset,

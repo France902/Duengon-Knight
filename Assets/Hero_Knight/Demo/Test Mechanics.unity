@@ -185,8 +185,8 @@ MonoBehaviour:
   isCutscene: 0
   roundFought: 0
   roundText: {fileID: 466735591}
-  fadeDuration: 1
-  displayDuration: 2
+  fadeDuration: 0.7
+  displayDuration: 1.5
 --- !u!4 &201987215
 Transform:
   m_ObjectHideFlags: 0
@@ -408,6 +408,7 @@ MonoBehaviour:
   health: 5
   maxHealth: 5
   alreadyHurt: 0
+  isDead: 0
   speed: 0.7
   jumpForce: 2.1
   attackRange: 0.15

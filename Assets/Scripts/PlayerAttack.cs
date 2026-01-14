@@ -23,6 +23,8 @@ public class PlayerAttack : MonoBehaviour
 
     public bool alreadyHurt = false;
 
+    public bool isDead  = false;
+
     float moveInput;
 
     public float speed = 5f;
@@ -54,6 +56,8 @@ public class PlayerAttack : MonoBehaviour
             return;
         }
 
+        if (isDead) return;
+
         // INPUT MOVIMENTO
         moveInput = Input.GetAxisRaw("Horizontal");
 
@@ -75,7 +79,7 @@ public class PlayerAttack : MonoBehaviour
             
 
         // MOVIMENTO (SEMPRE)
-        if (moveInput != 0 && !alreadyHurt)
+        if (moveInput != 0 && !alreadyHurt && !isDead)
         {
             anim.SetBool("run", true);
             transform.Translate(Vector2.right * moveInput * speed * Time.deltaTime);
@@ -239,6 +243,8 @@ public class PlayerAttack : MonoBehaviour
         {
             if (health > 0) health--;
             if(health == 0) {
+                isDead = true;
+                anim.SetBool("run", false);
                 anim.SetBool("die", true);
                 return;
             }
@@ -297,6 +303,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void Die()
     {
+        
         Destroy(gameObject);
         anim.SetBool("die", false);
         

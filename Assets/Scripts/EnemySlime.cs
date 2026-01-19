@@ -3,15 +3,17 @@ using UnityEngine;
 
 public class EnemySlime : MonoBehaviour
 {
-    private Animator anim;
-    private bool isDead = false;
+    protected Animator anim;
+    protected SpriteRenderer sr;
+    protected bool isDead = false;
     bool playerInRange;
     bool isInHurt;
 
     private int hp = 2;
 
-    void Awake()
+    protected virtual void Awake()
     {
+        sr = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
     }
 
@@ -44,6 +46,11 @@ public class EnemySlime : MonoBehaviour
         {
             anim.SetTrigger("hurt");
         }
+    }
+
+    public bool getFlipX()
+    {
+        return sr.flipX;
     }
 
     public void EndHurt()

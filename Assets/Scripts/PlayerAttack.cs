@@ -223,30 +223,43 @@ public class PlayerAttack : MonoBehaviour
 
         if (other.gameObject.layer != enemyLayerIndex)
             return;
-        // ignora tutto ciò che non è corpo nemico
+
         if (((1 << other.gameObject.layer) & enemyBodyLayer) == 0)
             return;
-        
 
         if (!alreadyHurt && !isAttacking)
         {
-            
-            EnemySlimeAI enemy = other.GetComponentInParent<EnemySlimeAI>();
-            if(!enemy.getIsDead()) takeHit(enemy);
+            // Usiamo una variabile generica che può ospitare entrambi i tipi
+            // Sostituisci "EnemyBase" con il nome della classe da cui ereditano entrambi
+            EnemySlime enemy;
 
+            if (other.CompareTag("enemySlime"))
+            {
+                enemy = other.GetComponentInParent<EnemySlimeAI>();
+            }
+            else
+            {
+                enemy = other.GetComponentInParent<EnemyAIGeneric>();
+            }
+
+            // Se l'oggetto ha uno dei due componenti ed è vivo
+            if (enemy != null)
+            {
+                takeHit(enemy, other);
+            }
         }
     }
 
 
-    public void takeHit(EnemySlimeAI enemy)
+    public void takeHit(EnemySlime enemy, Collider2D other)
     {
         if(!immunity)
         {
             if (health > 0) health--;
             if(health == 0) {
+                if (isDead) return;
+                anim.Play("die", 0, 0f);
                 isDead = true;
-                anim.SetBool("run", false);
-                anim.SetBool("die", true);
                 return;
             }
 
@@ -255,7 +268,8 @@ public class PlayerAttack : MonoBehaviour
 
             // 1. Calcola la direzione (già fatto col tuo flip)
             bool enemyFlip = enemy.getFlipX();
-            moveInput = enemyFlip ? 1 : -1;
+            if(other != null && other.CompareTag("enemySlime")) moveInput = enemyFlip ? 1 : -1;
+            else moveInput = enemyFlip ? -1 : +1;
 
             // 2. Calcola la distanza tra Player e Slime
             float distance = Vector2.Distance(transform.position, enemy.transform.position);

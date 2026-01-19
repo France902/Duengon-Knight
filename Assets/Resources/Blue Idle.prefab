@@ -243,6 +243,7 @@ MonoBehaviour:
   chaseDistance: 3
   stopOffset: 0.02
   stopTolerance: 0.05
+  playerScript: {fileID: 0}
 --- !u!1 &8907558753598102476
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,7 +256,7 @@ GameObject:
   - component: {fileID: 704500014756439368}
   m_Layer: 3
   m_Name: HurtBox
-  m_TagString: Enemy
+  m_TagString: enemySlime
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

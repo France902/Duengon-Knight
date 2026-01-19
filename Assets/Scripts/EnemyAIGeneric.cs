@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyAIGeneric : MonoBehaviour
+public class EnemyAIGeneric : EnemySlime
 {
     public float speed = 2f;
     public float chaseDistance = 4f;
@@ -8,14 +8,13 @@ public class EnemyAIGeneric : MonoBehaviour
     [Header("Chase Offset")]
     public float stopOffset = 0.6f;        // distanza laterale dal player
     public float stopTolerance = 0.05f;    // zona morta anti jitter
+    public string type;
 
     public PlayerAttack playerScript;
-    private SpriteRenderer sr;
     private Transform playerTransform;
-    private Animator anim;
     private RoundManager roundManager;
-    private bool isDead = false;
     private bool inTouchPlayer = false;
+    private bool isAttacking = false;
 
 
     private enum State { Idle, Chase }
@@ -27,10 +26,10 @@ public class EnemyAIGeneric : MonoBehaviour
         playerScript = GameObject.FindObjectOfType<PlayerAttack>();
     }
 
-    void Awake()
+    protected override void Awake()
     {
-        sr = GetComponent<SpriteRenderer>();
-        anim = GetComponent<Animator>();
+
+        base.Awake();
         
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
 
@@ -72,6 +71,7 @@ public class EnemyAIGeneric : MonoBehaviour
 
         // 2. Logica di orientamento (eseguita solo se vivo)
         float side = transform.position.x < playerTransform.position.x ? -1f : 1f;
+        
         sr.flipX = (playerTransform.position.x - transform.position.x) <= 0;
 
         Vector2 targetPos = new Vector2(
@@ -84,11 +84,22 @@ public class EnemyAIGeneric : MonoBehaviour
         // 3. Controllo distanza
         if (distToTarget <= stopTolerance)
         {
-            anim.SetBool("idle", true);
-            anim.SetBool("move", false);
-            inTouchPlayer = true;
-            return;
-        } else inTouchPlayer = false;
+            if (isAttacking) return;
+            else
+            {
+                isAttacking = true;
+                anim.Play("idle", 0, 0f);
+                anim.SetBool("idle", true);
+                anim.SetBool("move", false);
+                inTouchPlayer = true;
+                return;
+            }
+        }
+        else
+        {
+            inTouchPlayer = false;
+            isAttacking = false;
+        }
 
         anim.SetBool("idle", false);
         anim.SetBool("move", true);
@@ -156,7 +167,7 @@ public class EnemyAIGeneric : MonoBehaviour
 
         if(inTouchPlayer && !isDead)
         {
-            playerScript.takeHit(this);
+            playerScript.takeHit(this, null);
         }
     }
 
@@ -172,13 +183,4 @@ public class EnemyAIGeneric : MonoBehaviour
         anim.SetTrigger("die");
     }
 
-    public bool getFlipX()
-    {
-        return sr.flipX;
-    }
-
-    public bool getIsDead()
-    {
-        return isDead;
-    }
 }

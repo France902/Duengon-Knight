@@ -1,20 +1,19 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class EnemySlimeAI : MonoBehaviour
+public class EnemySlimeAI : EnemySlime 
 {
     public float speed = 2f;
     public float chaseDistance = 4f;
+    public string type = "slime";
 
     [Header("Chase Offset")]
     public float stopOffset = 0.6f;        // distanza laterale dal player
     public float stopTolerance = 0.05f;    // zona morta anti jitter
 
     public PlayerAttack playerScript;
-    private SpriteRenderer sr;
     private Transform playerTransform;
-    private Animator anim;
     private RoundManager roundManager;
-    private bool isDead = false;
     private bool inTouchPlayer = false;
 
 
@@ -27,11 +26,10 @@ public class EnemySlimeAI : MonoBehaviour
         playerScript = GameObject.FindObjectOfType<PlayerAttack>();
     }
 
-    void Awake()
+    protected override void Awake()
     {
-        sr = GetComponent<SpriteRenderer>();
-        anim = GetComponent<Animator>();
-        
+        base.Awake();
+
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
 
         if (playerObj != null)
@@ -155,7 +153,7 @@ public class EnemySlimeAI : MonoBehaviour
 
         if(inTouchPlayer && !isDead)
         {
-            playerScript.takeHit(this);
+            playerScript.takeHit(this, null);
         }
     }
 
@@ -171,13 +169,4 @@ public class EnemySlimeAI : MonoBehaviour
         anim.SetTrigger("die");
     }
 
-    public bool getFlipX()
-    {
-        return sr.flipX;
-    }
-
-    public bool getIsDead()
-    {
-        return isDead;
-    }
 }

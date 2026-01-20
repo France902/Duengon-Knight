@@ -44,8 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29546c7038c3b144f873b5a870ec6a78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabName: Blue Idle
-  enemiesPerWave: 2
-  extraEnemiesPerWave: 2
+  enemiesToSpawn:
+  - {fileID: 8048524908834707888, guid: 6dab528ea53eeba489429a176c686bf4, type: 3}
+  - {fileID: 0}
+  - {fileID: 8048524908834707888, guid: 6dab528ea53eeba489429a176c686bf4, type: 3}
   delayBetweenEnemies: 1.3
   roundManager: {fileID: 0}

@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 public class WaveManager : MonoBehaviour
 {
-    [Header("Configurazione")]
-    public string prefabName = "Blue Idle";
-    public int enemiesPerWave = 3;
-    public int extraEnemiesPerWave = 2;
+    [Header("Configurazione Ondata")]
+    // Trascina i Prefab. Lascia degli spazi vuoti (Element = None) per separare i round
+    public GameObject[] enemiesToSpawn;
+
     public float delayBetweenEnemies = 0.5f;
     public RoundManager roundManager;
 
@@ -15,38 +15,46 @@ public class WaveManager : MonoBehaviour
     private bool isSpawning = true;
     private bool waveInProgress = false;
 
+    // Indice per ricordarsi a che punto dell'array siamo arrivati
+    private int currentEnemyIndex = 0;
+
     void Start()
     {
         spawnParent = GameObject.FindWithTag("World Enemies");
-
         if (spawnParent == null)
             Debug.LogError("Oggetto 'World Enemies' non trovato!");
     }
 
-    void  Update()
+    void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             isSpawning = !isSpawning;
-            Debug.Log(isSpawning ? "Sistema Ondate Attivo" : "Sistema Ondate Fermato");
         }
 
+        // Avvia il round se non c'è un'ondata in corso, non siamo in cutscene e i nemici sono finiti
         if (isSpawning && !waveInProgress && !roundManager.isCutscene)
         {
             if (spawnParent != null && spawnParent.transform.childCount == 0)
             {
-                roundManager.setIsCutscene(true);
-                StartCoroutine(WaitAndThenSpawn());
+                // Controlliamo se ci sono ancora nemici nell'array principale
+                if (currentEnemyIndex < enemiesToSpawn.Length)
+                {
+                    roundManager.setIsCutscene(true);
+                    StartCoroutine(WaitAndThenSpawn());
+                }
+                else
+                {
+                    Debug.Log("Tutti i round completati!");
+                    isSpawning = false;
+                }
             }
         }
     }
 
     IEnumerator WaitAndThenSpawn()
     {
-        // 1. Aspetta che la scritta finisca (se ShowRoundSequence è una Coroutine)
-        yield return new WaitForSeconds(roundManager.displayDuration*1.6f);
-
-        // 2. Una volta finita la prima, parte la seconda
+        yield return new WaitForSeconds(roundManager.displayDuration * 1.6f);
         yield return StartCoroutine(SpawnWaveRoutine());
     }
 
@@ -54,28 +62,32 @@ public class WaveManager : MonoBehaviour
     {
         waveInProgress = true;
 
-        string[] enemyNames = new string[enemiesPerWave];
-        for (int i = 0; i < enemyNames.Length; i++)
+        // Continua a scorrere l'array dall'ultimo punto salvato
+        while (currentEnemyIndex < enemiesToSpawn.Length)
         {
-            enemyNames[i] = prefabName;
-        }
+            GameObject currentPrefab = enemiesToSpawn[currentEnemyIndex];
 
-        foreach (string name in enemyNames)
-        {
-            SpawnEnemy(name);
+            // Se troviamo un elemento vuoto (None/null), il round finisce qui
+            if (currentPrefab == null)
+            {
+                currentEnemyIndex++; // Incrementiamo per saltare il "null" al prossimo round
+                break;
+            }
+
+            // Altrimenti, spawna il nemico
+            SpawnEnemy(currentPrefab);
+            currentEnemyIndex++;
+
             yield return new WaitForSeconds(delayBetweenEnemies);
         }
 
-        enemiesPerWave += extraEnemiesPerWave;
         waveInProgress = false;
     }
 
-    void SpawnEnemy(string nameToSpawn)
+    void SpawnEnemy(GameObject prefab)
     {
-        GameObject prefab = Resources.Load<GameObject>(nameToSpawn);
-        if (prefab != null && spawnParent != null)
+        if (spawnParent != null)
         {
-            // Calcoliamo la posizione casuale
             Vector3 randomPosition = GetRandomSpawnPosition();
             Instantiate(prefab, randomPosition, Quaternion.identity, spawnParent.transform);
         }
@@ -83,29 +95,19 @@ public class WaveManager : MonoBehaviour
 
     Vector3 GetRandomSpawnPosition()
     {
-        // Partiamo dalla posizione dello Spawner stesso come base
+        // ... (Logica della posizione identica a prima)
         float minX = transform.position.x;
         float maxX = transform.position.x;
         float minZ = transform.position.z;
         float maxZ = transform.position.z;
-
-        // Troviamo tutti gli "espansori" dell'area
         GameObject[] expanders = GameObject.FindGameObjectsWithTag("Expander spawnRange");
-
         foreach (GameObject exp in expanders)
         {
-            // Aggiorniamo i limiti dell'area in base alla posizione di ogni Expander
             if (exp.transform.position.x < minX) minX = exp.transform.position.x;
             if (exp.transform.position.x > maxX) maxX = exp.transform.position.x;
             if (exp.transform.position.z < minZ) minZ = exp.transform.position.z;
             if (exp.transform.position.z > maxZ) maxZ = exp.transform.position.z;
         }
-
-        // Generiamo un punto casuale tra i valori minimi e massimi trovati
-        float randomX = Random.Range(minX, maxX);
-        float randomZ = Random.Range(minZ, maxZ);
-
-        // Manteniamo la Y dello spawner (altezza del terreno)
-        return new Vector3(randomX, transform.position.y, randomZ);
+        return new Vector3(Random.Range(minX, maxX), transform.position.y, Random.Range(minZ, maxZ));
     }
 }

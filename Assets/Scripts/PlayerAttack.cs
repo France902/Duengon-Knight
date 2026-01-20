@@ -269,7 +269,7 @@ public class PlayerAttack : MonoBehaviour
 
             // 1. Calcola la direzione (già fatto col tuo flip)
             bool enemyFlip = enemy.getFlipX();
-            if(other != null && other.CompareTag("enemySlime")) moveInput = enemyFlip ? 1 : -1;
+            if(enemy.CompareTag("enemySlime")) moveInput = enemyFlip ? +1 : -1;
             else moveInput = enemyFlip ? -1 : +1;
 
             // 2. Calcola la distanza tra Player e Slime

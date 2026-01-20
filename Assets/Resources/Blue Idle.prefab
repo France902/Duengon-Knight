@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 2863997685717574545}
   m_Layer: 3
   m_Name: Blue Idle
-  m_TagString: Enemy
+  m_TagString: enemySlime
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -227,6 +227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f0a40f0553acbc4e95f77c08cdcb310, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hp: 2
 --- !u!114 &2863997685717574545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,8 +240,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cc28c010452a9543a5cceacd4b33f41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hp: 0
   speed: 0.07
   chaseDistance: 3
+  type: slime
   stopOffset: 0.02
   stopTolerance: 0.05
   playerScript: {fileID: 0}

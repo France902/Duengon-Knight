@@ -9,7 +9,7 @@ public class EnemySlime : MonoBehaviour
     bool playerInRange;
     bool isInHurt;
 
-    private int hp = 2;
+    public int hp;
 
     protected virtual void Awake()
     {
@@ -31,9 +31,8 @@ public class EnemySlime : MonoBehaviour
 
     public void TakeDamage(int dmg)
     {
-        
         if (isDead || isInHurt) return;
-        Debug.Log(this.tag);
+        
         isInHurt = true;
         hp -= dmg;
 
@@ -41,7 +40,7 @@ public class EnemySlime : MonoBehaviour
         {
             hp = 0;
             isDead = true;
-            anim.SetTrigger("die");
+            anim.SetBool("die", true);
         }
         else
         {

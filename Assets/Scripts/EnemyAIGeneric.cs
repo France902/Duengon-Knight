@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 public class EnemyAIGeneric : EnemySlime
@@ -15,6 +17,7 @@ public class EnemyAIGeneric : EnemySlime
     private RoundManager roundManager;
     private bool inTouchPlayer = false;
     private bool isAttacking = false;
+    private Boolean moveable = true;
 
 
     private enum State { Idle, Chase }
@@ -87,10 +90,10 @@ public class EnemyAIGeneric : EnemySlime
             if (isAttacking) return;
             else
             {
-                isAttacking = true;
                 anim.Play("idle", 0, 0f);
                 anim.SetBool("idle", true);
                 anim.SetBool("move", false);
+                moveable = false;
                 inTouchPlayer = true;
                 return;
             }
@@ -100,13 +103,16 @@ public class EnemyAIGeneric : EnemySlime
             inTouchPlayer = false;
             isAttacking = false;
         }
+        if(moveable)
+        {
+            anim.SetBool("idle", false);
+            anim.SetBool("move", true);
+            // 4. Movimento (eseguito solo se vivo e lontano)
+            Vector2 dir = (targetPos - (Vector2)transform.position).normalized;
 
-        anim.SetBool("idle", false);
-        anim.SetBool("move", true);
-        // 4. Movimento (eseguito solo se vivo e lontano)
-        Vector2 dir = (targetPos - (Vector2)transform.position).normalized;
+            transform.Translate(dir * speed * Time.deltaTime);
+        }
         
-        transform.Translate(dir * speed * Time.deltaTime);
     }
 
     private Collider2D weaponCollider; // Referenza per il reset
@@ -164,11 +170,47 @@ public class EnemyAIGeneric : EnemySlime
 
     public void attack()
     {
-
-        if(inTouchPlayer && !isDead)
+        
+        if (inTouchPlayer && !isDead && !isAttacking)
         {
+            isAttacking = true;
+            int sceltaAttacco = UnityEngine.Random.Range(1, 3);
+            Debug.Log("da animazione " + sceltaAttacco);
+
+            if (sceltaAttacco == 1)
+            {
+                
+                anim.SetTrigger("attack");
+            }
+            else
+            {      
+                anim.SetTrigger("attack2");
+            }
+
+            moveable = false;
+        }
+    }
+
+    public void finishAttack()
+    {
+        isAttacking = false;
+        if (inTouchPlayer && !isDead)
+        {
+            
             playerScript.takeHit(this, null);
         }
+
+        
+        StartCoroutine(ripristineMoveable(0.5f));
+    }
+
+    private IEnumerator ripristineMoveable(float delay)
+    {
+        
+        yield return new WaitForSeconds(delay);
+
+        moveable = true;
+        
     }
 
     public void setDie()

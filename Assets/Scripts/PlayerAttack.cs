@@ -146,6 +146,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 if (angle < attackAngle / 2f)
                 {
+                    
                     hit.GetComponentInParent<EnemySlime>()?.TakeDamage(damage);
                 }
             }

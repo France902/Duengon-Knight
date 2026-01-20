@@ -31,8 +31,9 @@ public class EnemySlime : MonoBehaviour
 
     public void TakeDamage(int dmg)
     {
+        
         if (isDead || isInHurt) return;
-
+        Debug.Log(this.tag);
         isInHurt = true;
         hp -= dmg;
 

@@ -86,7 +86,7 @@ public class EnemyAIGeneric : EnemySlime
             Debug.DrawRay(transform.position, Vector2.up * rayLength, Color.green);
             // Controlla se c'è il soffitto (Ground) sopra di noi (raggio lungo quanto il salto/distanza verticale)
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, rayLength, LayerMask.GetMask("Ground"));
-
+            Debug.Log(isRepositioning);
             if (hit.collider != null)
             {
                 // C'è qualcosa sopra! Inizia il riposizionamento casuale
@@ -99,6 +99,7 @@ public class EnemyAIGeneric : EnemySlime
 
                 // Muoviti lateralmente per liberarti dal soffitto
                 transform.Translate(new Vector2(repositionDir, 0) * speed * Time.deltaTime);
+                repositionDir++;
                 return; // Blocca il resto del chasing finché sta cercando spazio
             }
             else
@@ -110,10 +111,7 @@ public class EnemyAIGeneric : EnemySlime
                 // anim.SetBool("jump", true);
             }
         }
-        else
-        {
-            isRepositioning = false; // Resetta se il giocatore non è più sopra
-        }
+        else if(verticalDiff < 0.1f) isRepositioning = false;
 
         // 2. Controllo distanza per ATTACCO/IDLE
         if (distToTarget <= stopTolerance && verticalDistAbs <= 0.1f)

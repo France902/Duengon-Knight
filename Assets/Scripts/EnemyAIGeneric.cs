@@ -119,7 +119,7 @@ public class EnemyAIGeneric : EnemySlime
                 isRepositioning = false;
                 repositionDir = 0f;
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-                // anim.SetTrigger("jump"); // Suggerito usare Trigger per il salto
+                anim.SetTrigger("jump"); 
                 return;
             }
         }

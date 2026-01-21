@@ -7,9 +7,10 @@ public class EnemySlime : MonoBehaviour
     protected SpriteRenderer sr;
     protected bool isDead = false;
     bool playerInRange;
-    bool isInHurt;
+    protected bool isInHurt;
 
     public int hp;
+    public int damage;
 
     protected virtual void Awake()
     {

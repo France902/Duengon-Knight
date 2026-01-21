@@ -256,8 +256,8 @@ public class PlayerAttack : MonoBehaviour
     {
         if(!immunity)
         {
-            if (health > 0) health--;
-            if(health == 0) {
+            if (health > 0) health -= enemy.damage;
+            if(health <= 0) {
                 if (isDead) return;
                 anim.Play("die", 0, 0f);
                 isDead = true;

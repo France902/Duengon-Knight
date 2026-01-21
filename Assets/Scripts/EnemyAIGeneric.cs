@@ -133,8 +133,7 @@ public class EnemyAIGeneric : EnemySlime
         if (distToTarget <= stopTolerance && verticalDistAbs <= 0.1f)
         {
             if (isAttacking) return;
-            anim.SetBool("idle", true);
-            anim.SetBool("move", false); // Spegni movimento in idle
+            anim.Play("idle");
             moveable = false;
             inTouchPlayer = true;
             return;
@@ -211,19 +210,19 @@ public class EnemyAIGeneric : EnemySlime
     public void attack()
     {
         
-        if (inTouchPlayer && !isDead && !isAttacking)
+        if (inTouchPlayer && !isDead && !isAttacking && !isInHurt)
         {
             isAttacking = true;
             int sceltaAttacco = UnityEngine.Random.Range(1, 3);
-            Debug.Log("da animazione " + sceltaAttacco);
 
             if (sceltaAttacco == 1)
             {
-                
+                damage = 1;
                 anim.SetTrigger("attack");
             }
             else
-            {      
+            {
+                damage = 2;
                 anim.SetTrigger("attack2");
             }
 

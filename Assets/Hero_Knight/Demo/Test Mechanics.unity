@@ -927,7 +927,7 @@ PrefabInstance:
       objectReference: {fileID: 201987214}
     - target: {fileID: 5847079791462202251, guid: 6366b637e58b2ad43a528ad7b427d49b, type: 3}
       propertyPath: enemiesToSpawn.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5847079791462202251, guid: 6366b637e58b2ad43a528ad7b427d49b, type: 3}
       propertyPath: enemiesToSpawn.Array.data[0]
@@ -936,7 +936,7 @@ PrefabInstance:
     - target: {fileID: 5847079791462202251, guid: 6366b637e58b2ad43a528ad7b427d49b, type: 3}
       propertyPath: enemiesToSpawn.Array.data[1]
       value: 
-      objectReference: {fileID: 7424830540609518112, guid: 83e8712e1758cef4aac1dac250cc9ce8, type: 3}
+      objectReference: {fileID: 8048524908834707888, guid: 6dab528ea53eeba489429a176c686bf4, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

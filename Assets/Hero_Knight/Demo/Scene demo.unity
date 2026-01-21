@@ -1029,7 +1029,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 581e5b9c2dcd99748ba97b271b11a2be, type: 3}
---- !u!43 &947325037
+--- !u!43 &853992688
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1498,8 +1498,8 @@ MonoBehaviour:
   - {x: 5.1200027, y: 2.88, z: 0}
   - {x: 5.1200027, y: -2.8799996, z: 0}
   m_ShapePathHash: 0
-  m_Mesh: {fileID: 947325037}
-  m_InstanceId: 29038
+  m_Mesh: {fileID: 853992688}
+  m_InstanceId: 28720
   m_LocalBounds:
     m_Center: {x: 0.0000009536743, y: 0.00000023841858, z: 0}
     m_Extent: {x: 5.120002, y: 2.8799999, z: 0}

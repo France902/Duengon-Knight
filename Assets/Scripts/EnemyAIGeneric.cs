@@ -63,56 +63,84 @@ public class EnemyAIGeneric : EnemySlime
         }
     }
 
+    private bool isRepositioning = false;
+    private float repositionDir = 0f;
+
     void ChasePlayerWithOffset()
     {
-        // 1. Controllo morte: se è morto, esce subito e non fa nulla
-        if (isDead)
-        {
-            
-            return;
-        }
+        if (isDead) return;
 
-        // 2. Logica di orientamento (eseguita solo se vivo)
+        // 1. Calcoli distanze
         float side = transform.position.x < playerTransform.position.x ? -1f : 1f;
-        
         sr.flipX = (playerTransform.position.x - transform.position.x) <= 0;
 
-        Vector2 targetPos = new Vector2(
-            playerTransform.position.x + side * stopOffset,
-            transform.position.y
-        );
-
+        Vector2 targetPos = new Vector2(playerTransform.position.x + side * stopOffset, transform.position.y);
         float distToTarget = Vector2.Distance(transform.position, targetPos);
+        float verticalDiff = playerTransform.position.y - transform.position.y;
+        float verticalDistAbs = Mathf.Abs(verticalDiff);
 
-        // 3. Controllo distanza
-        if (distToTarget <= stopTolerance)
+        // --- LOGICA DI SALTO E EVITAMENTO OSTACOLI ---
+        if (verticalDiff > 0.1f && !isAttacking && distToTarget <= stopTolerance)
         {
-            if (isAttacking) return;
+            float rayLength = verticalDiff + 0.5f;
+            Debug.DrawRay(transform.position, Vector2.up * rayLength, Color.green);
+            // Controlla se c'è il soffitto (Ground) sopra di noi (raggio lungo quanto il salto/distanza verticale)
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, rayLength, LayerMask.GetMask("Ground"));
+            Debug.Log(isRepositioning);
+            if (hit.collider != null)
+            {
+                // C'è qualcosa sopra! Inizia il riposizionamento casuale
+                if (!isRepositioning)
+                {
+                    isRepositioning = true;
+                    
+                    if(repositionDir == 0f) repositionDir = UnityEngine.Random.value > 0.5f ? 1f : -1f;
+                }
+
+                // Muoviti lateralmente per liberarti dal soffitto
+                transform.Translate(new Vector2(repositionDir, 0) * speed * Time.deltaTime);
+                repositionDir++;
+                return; // Blocca il resto del chasing finché sta cercando spazio
+            }
             else
             {
-                anim.Play("idle", 0, 0f);
-                anim.SetBool("idle", true);
-                anim.SetBool("move", false);
-                moveable = false;
-                inTouchPlayer = true;
-                return;
+                
+                isRepositioning = false;
+                repositionDir = 0f;
+                transform.Translate(Vector2.up * speed * Time.deltaTime * 15);
+                // anim.SetBool("jump", true);
             }
+        }
+        else if(verticalDiff < 0.1f) isRepositioning = false;
+
+        // 2. Controllo distanza per ATTACCO/IDLE
+        if (distToTarget <= stopTolerance && verticalDistAbs <= 0.1f)
+        {
+            if (isAttacking) return;
+
+            anim.Play("idle", 0, 0f);
+            anim.SetBool("idle", true);
+            anim.SetBool("move", false);
+            moveable = false;
+            inTouchPlayer = true;
+            return;
         }
         else
         {
             inTouchPlayer = false;
             isAttacking = false;
+            moveable = true;
         }
-        if(moveable)
+
+        // 3. Movimento Orizzontale standard (Chasing)
+        if (moveable && !isRepositioning) // Muovi solo se non stai evitando un soffitto
         {
             anim.SetBool("idle", false);
             anim.SetBool("move", true);
-            // 4. Movimento (eseguito solo se vivo e lontano)
+            Debug.Log("si");
             Vector2 dir = (targetPos - (Vector2)transform.position).normalized;
-
             transform.Translate(dir * speed * Time.deltaTime);
         }
-        
     }
 
     private Collider2D weaponCollider; // Referenza per il reset

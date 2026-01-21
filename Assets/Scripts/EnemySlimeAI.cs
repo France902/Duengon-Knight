@@ -61,15 +61,10 @@ public class EnemySlimeAI : EnemySlime
 
     void ChasePlayerWithOffset()
     {
-        // 1. Controllo morte: se è morto, esce subito e non fa nulla
-        if (isDead)
-        {
-            // Opzionale: assicurati che l'animazione di movimento sia spenta
-            // anim.SetBool("move", false); 
-            return;
-        }
+        
+        if (isDead) return;
 
-        // 2. Logica di orientamento (eseguita solo se vivo)
+        
         float side = transform.position.x < playerTransform.position.x ? -1f : 1f;
         sr.flipX = (playerTransform.position.x - transform.position.x) >= 0;
 
@@ -80,18 +75,21 @@ public class EnemySlimeAI : EnemySlime
 
         float distToTarget = Vector2.Distance(transform.position, targetPos);
 
-        // 3. Controllo distanza
-        if (distToTarget <= stopTolerance)
-        {
-
-            inTouchPlayer = true;
-
-            return;
-        } else inTouchPlayer = false;
-
-        // 4. Movimento (eseguito solo se vivo e lontano)
-        Vector2 dir = (targetPos - (Vector2)transform.position).normalized;
+       
+        float verticalDist = Mathf.Abs(transform.position.y - playerTransform.position.y);
         
+        if (distToTarget <= stopTolerance && verticalDist <= 0.3f)
+        {
+            inTouchPlayer = true;
+            return;
+        }
+        else
+        {
+            inTouchPlayer = false;
+        }
+
+        // 4. Movimento
+        Vector2 dir = (targetPos - (Vector2)transform.position).normalized;
         transform.Translate(dir * speed * Time.deltaTime);
     }
 

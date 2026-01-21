@@ -6,6 +6,7 @@ public class EnemyAIGeneric : EnemySlime
 {
     public float speed = 2f;
     public float chaseDistance = 4f;
+    public float jumpForce = 1f;
 
     [Header("Chase Offset")]
     public float stopOffset = 0.6f;        // distanza laterale dal player
@@ -15,6 +16,7 @@ public class EnemyAIGeneric : EnemySlime
     public PlayerAttack playerScript;
     private Transform playerTransform;
     private RoundManager roundManager;
+    private Rigidbody2D rb;
     private bool inTouchPlayer = false;
     private bool isAttacking = false;
     private Boolean moveable = true;
@@ -27,6 +29,7 @@ public class EnemyAIGeneric : EnemySlime
     {
         roundManager = GameObject.FindAnyObjectByType<RoundManager>();
         playerScript = GameObject.FindObjectOfType<PlayerAttack>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     protected override void Awake()
@@ -70,7 +73,7 @@ public class EnemyAIGeneric : EnemySlime
     {
         if (isDead) return;
 
-        // 1. Calcoli distanze
+        // 1. Calcoli base
         float side = transform.position.x < playerTransform.position.x ? -1f : 1f;
         sr.flipX = (playerTransform.position.x - transform.position.x) <= 0;
 
@@ -80,47 +83,58 @@ public class EnemyAIGeneric : EnemySlime
         float verticalDistAbs = Mathf.Abs(verticalDiff);
 
         // --- LOGICA DI SALTO E EVITAMENTO OSTACOLI ---
-        // Il raggio deve essere proiettato sempre se il player è sopra, per capire se possiamo saltare
-        if (distToTarget <= stopTolerance == false) Debug.Log("si");
-        if (verticalDiff > 0.1f && !isAttacking && distToTarget <= stopTolerance)
+        if (verticalDiff > 0.1f && !isAttacking && (distToTarget <= stopTolerance || isRepositioning) && playerScript.getIsGrounded())
         {
-            float rayLength = 2.0f; // Lunghezza fissa o dinamica del controllo soffitto
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, rayLength, LayerMask.GetMask("Ground"));
+            // Usiamo un BoxCast invece di un Raycast per simulare la larghezza del Goblin
+            // Dimensione del box (larghezza 0.5f, altezza 0.1f). Regola la larghezza se necessario.
+            Vector2 boxSize = new Vector2(0.15f, 0.1f);
+            float rayLength = 2.0f;
 
+            RaycastHit2D hit = Physics2D.BoxCast(transform.position, boxSize, 0f, Vector2.up, rayLength, LayerMask.GetMask("Ground"));
+
+            // Visualizzazione per Debug del BoxCast
             if (hit.collider != null)
             {
-                // C'È UN SOFFITTO: Muoviti lateralmente
-                if (!isRepositioning)
-                {
-                    isRepositioning = true;
-                    
+                isRepositioning = true;
+                if (repositionDir == 0f)
                     repositionDir = (transform.position.x < playerTransform.position.x) ? -1f : 1f;
-                }
+
+                // Muoviti lateralmente
+                if(repositionDir == -1f) sr.flipX = true;
+                else sr.flipX = false;
                 transform.Translate(new Vector2(repositionDir, 0) * speed * Time.deltaTime);
                 return;
             }
             else
             {
+                // Se non tocca più nulla, aggiungiamo un piccolo spostamento extra prima di saltare
+                // per assicurarci che non sia proprio sul bordo (margine di sicurezza)
+                if (isRepositioning)
+                {
+                    // Spinta finale laterale per liberare completamente la testa
+                    transform.Translate(new Vector2(repositionDir, 0) * speed * Time.deltaTime);
+                }
+
                 // SOFFITTO LIBERO: Salta
                 isRepositioning = false;
                 repositionDir = 0f;
-                transform.Translate(Vector2.up * speed * Time.deltaTime * 15);
-                // anim.SetBool("jump", true);
-                return; // Esci per evitare che esegua il movimento orizzontale mentre sale
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                // anim.SetTrigger("jump"); // Suggerito usare Trigger per il salto
+                return;
             }
         }
         else
         {
-            if (isRepositioning && distToTarget > stopTolerance) return;
             isRepositioning = false;
+            repositionDir = 0f;
         }
 
         // 2. Controllo distanza per ATTACCO/IDLE
         if (distToTarget <= stopTolerance && verticalDistAbs <= 0.1f)
         {
             if (isAttacking) return;
-
             anim.SetBool("idle", true);
+            anim.SetBool("move", false); // Spegni movimento in idle
             moveable = false;
             inTouchPlayer = true;
             return;
@@ -132,17 +146,15 @@ public class EnemyAIGeneric : EnemySlime
             moveable = true;
         }
 
-        // 3. Movimento Orizzontale standard (Chasing)
+        // 3. Movimento Orizzontale standard
         if (moveable && !isRepositioning)
         {
             anim.SetBool("idle", false);
             anim.SetBool("move", true);
-
             Vector2 dir = (targetPos - (Vector2)transform.position).normalized;
             transform.Translate(dir * speed * Time.deltaTime);
         }
     }
-
     private Collider2D weaponCollider; // Referenza per il reset
 
     private void OnTriggerEnter2D(Collider2D collision)

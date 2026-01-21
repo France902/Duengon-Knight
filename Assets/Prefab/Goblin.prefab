@@ -310,6 +310,7 @@ MonoBehaviour:
   hp: 2
   speed: 0.25
   chaseDistance: 3
+  jumpForce: 3
   stopOffset: 0.07
   stopTolerance: 0.05
   type: goblin

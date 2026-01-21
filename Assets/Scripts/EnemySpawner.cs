@@ -32,12 +32,12 @@ public class WaveManager : MonoBehaviour
             isSpawning = !isSpawning;
         }
 
-        // Avvia il round se non c'è un'ondata in corso, non siamo in cutscene e i nemici sono finiti
+        // 2. Aggiungiamo il controllo !enemiesStillPresent alla condizione principale
         if (isSpawning && !waveInProgress && !roundManager.isCutscene)
         {
+            // Il controllo sul childCount può rimanere come ulteriore sicurezza se i nemici sono figli di spawnParent
             if (spawnParent != null && spawnParent.transform.childCount == 0)
             {
-                // Controlliamo se ci sono ancora nemici nell'array principale
                 if (currentEnemyIndex < enemiesToSpawn.Length)
                 {
                     roundManager.setIsCutscene(true);

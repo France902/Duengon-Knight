@@ -5,37 +5,34 @@ using System.Collections.Generic;
 public class WaveManager : MonoBehaviour
 {
     [Header("Configurazione Ondata")]
-    // Trascina i Prefab. Lascia degli spazi vuoti (Element = None) per separare i round
+    // Usiamo due array separati per evitare errori di classe custom
     public GameObject[] enemiesToSpawn;
+    public bool[] spawnOnLeft; // Spunta la casella se il nemico deve andare a sinistra
 
+    [Header("Impostazioni")]
     public float delayBetweenEnemies = 0.5f;
     public RoundManager roundManager;
 
     private GameObject spawnParent;
     private bool isSpawning = true;
     private bool waveInProgress = false;
-
-    // Indice per ricordarsi a che punto dell'array siamo arrivati
     private int currentEnemyIndex = 0;
 
     void Start()
     {
         spawnParent = GameObject.FindWithTag("World Enemies");
-        if (spawnParent == null)
-            Debug.LogError("Oggetto 'World Enemies' non trovato!");
+
+        // Controllo di sicurezza: gli array devono avere la stessa lunghezza
+        if (spawnOnLeft.Length != enemiesToSpawn.Length)
+        {
+            Debug.LogWarning("Attenzione: L'array dei booleani non ha la stessa lunghezza dell'array dei nemici!");
+        }
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            isSpawning = !isSpawning;
-        }
-
-        // 2. Aggiungiamo il controllo !enemiesStillPresent alla condizione principale
         if (isSpawning && !waveInProgress && !roundManager.isCutscene)
         {
-            // Il controllo sul childCount può rimanere come ulteriore sicurezza se i nemici sono figli di spawnParent
             if (spawnParent != null && spawnParent.transform.childCount == 0)
             {
                 if (currentEnemyIndex < enemiesToSpawn.Length)
@@ -45,7 +42,6 @@ public class WaveManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Tutti i round completati!");
                     isSpawning = false;
                 }
             }
@@ -60,46 +56,68 @@ public class WaveManager : MonoBehaviour
 
     IEnumerator SpawnWaveRoutine()
     {
-        waveInProgress = true;
-
-        // Continua a scorrere l'array dall'ultimo punto salvato
         while (currentEnemyIndex < enemiesToSpawn.Length)
         {
             GameObject currentPrefab = enemiesToSpawn[currentEnemyIndex];
 
-            // Se troviamo un elemento vuoto (None/null), il round finisce qui
             if (currentPrefab == null)
             {
-                currentEnemyIndex++; // Incrementiamo per saltare il "null" al prossimo round
+                currentEnemyIndex++;
                 break;
             }
 
-            // Altrimenti, spawna il nemico
-            SpawnEnemy(currentPrefab);
+            // Recuperiamo la condizione dall'array booleano corrispondente
+            bool isLeft = false;
+            if (currentEnemyIndex < spawnOnLeft.Length)
+            {
+                isLeft = spawnOnLeft[currentEnemyIndex];
+            }
             currentEnemyIndex++;
-
+            waveInProgress = true;
             yield return new WaitForSeconds(delayBetweenEnemies);
+            SpawnEnemy(currentPrefab, isLeft);
+            
+            
+            
         }
-
         waveInProgress = false;
     }
 
-    void SpawnEnemy(GameObject prefab)
+    void SpawnEnemy(GameObject prefab, bool leftSide)
     {
         if (spawnParent != null)
         {
-            Vector3 randomPosition = GetRandomSpawnPosition();
+            Vector3 randomPosition = GetRandomSpawnPosition(leftSide);
             Instantiate(prefab, randomPosition, Quaternion.identity, spawnParent.transform);
         }
     }
 
-    Vector3 GetRandomSpawnPosition()
+    Vector3 GetRandomSpawnPosition(bool leftSide)
     {
-        // ... (Logica della posizione identica a prima)
-        float minX = transform.position.x;
-        float maxX = transform.position.x;
-        float minZ = transform.position.z;
-        float maxZ = transform.position.z;
+        float minX, maxX, minZ, maxZ;
+
+        if (leftSide)
+        {
+            // LOGICA SINISTRA
+            GameObject altSpawn = GameObject.FindWithTag("Alternative spawn");
+            GameObject altRange = GameObject.FindWithTag("Alternative spawnRange");
+
+            if (altSpawn != null && altRange != null)
+            {
+                minX = Mathf.Min(altSpawn.transform.position.x, altRange.transform.position.x);
+                maxX = Mathf.Max(altSpawn.transform.position.x, altRange.transform.position.x);
+                minZ = Mathf.Min(altSpawn.transform.position.z, altRange.transform.position.z);
+                maxZ = Mathf.Max(altSpawn.transform.position.z, altRange.transform.position.z);
+                return new Vector3(Random.Range(minX, maxX), transform.position.y, Random.Range(minZ, maxZ));
+            }
+        }
+
+        // LOGICA DESTRA (DEFAULT)
+        minX = transform.position.x;
+        maxX = transform.position.x;
+        minZ = transform.position.z;
+        maxZ = transform.position.z;
+
         GameObject[] expanders = GameObject.FindGameObjectsWithTag("Expander spawnRange");
         foreach (GameObject exp in expanders)
         {
@@ -108,6 +126,7 @@ public class WaveManager : MonoBehaviour
             if (exp.transform.position.z < minZ) minZ = exp.transform.position.z;
             if (exp.transform.position.z > maxZ) maxZ = exp.transform.position.z;
         }
+
         return new Vector3(Random.Range(minX, maxX), transform.position.y, Random.Range(minZ, maxZ));
     }
 }

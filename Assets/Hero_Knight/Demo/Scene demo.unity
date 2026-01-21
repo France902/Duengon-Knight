@@ -255,7 +255,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 370063969}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f31024abd4b4ab3449ac7dfb3359115b, type: 3}
   m_Name: 
@@ -3248,7 +3248,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1733098394}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.0029762192, w: 0.9999956}
+  m_LocalRotation: {x: -0, y: -0, z: 0.004085702, w: 0.99999166}
   m_LocalPosition: {x: -5.1, y: 2.94, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3294,7 +3294,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 1.2785999
+  m_PointLightOuterRadius: 1.7785677
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1

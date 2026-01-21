@@ -124,24 +124,40 @@ public class PlayerAttack : MonoBehaviour
 
     public Transform attackPoint;
 
-    public Vector2 attackSize = new Vector2(2f, 1f); // Larghezza e Altezza del rettangolo
-    public float attackOffset = 1f; // Quanto il rettangolo è spostato in avanti rispetto al player
+    public float attackAngle = 180f; // 180 gradi è un semicerchio perfetto
 
     public void DealDamage()
     {
-        // 1. Determina la direzione del player (1 a destra, -1 a sinistra)
-        float direction = sr.flipX ? -1f : 1f;
-
-        // 2. Calcola il centro del rettangolo (spostato in avanti rispetto al player)
-        Vector2 spawnPosition = (Vector2)transform.position + new Vector2(attackOffset * direction, 0);
-
-        // 3. Esegui il controllo nel rettangolo
-        Collider2D[] hits = Physics2D.OverlapBoxAll(spawnPosition, attackSize, 0f, enemyLayer);
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, attackRange, enemyLayer);
 
         foreach (var hit in hits)
         {
-            // Ora non serve più calcolare l'angolo, perché il rettangolo definisce già l'area esatta
-            hit.GetComponentInParent<EnemySlime>()?.TakeDamage(damage);
+
+            // 1. Calcola la direzione verso il nemico
+            Vector3 directionToEnemy = (hit.transform.position - transform.position).normalized;
+
+            // 2. Calcola l'angolo tra la direzione in cui guarda il player (transform.right o transform.up) e il nemico
+            // Se il tuo player guarda a destra, usa transform.right
+            float angle = Vector3.Angle(transform.right, directionToEnemy);
+
+
+            // 3. Se l'angolo è entro la metà del nostro raggio d'azione (es. 90 gradi a sx e 90 a dx)
+            if(!sr.flipX)
+            {
+                if (angle < attackAngle / 2f)
+                {
+                    
+                    hit.GetComponentInParent<EnemySlime>()?.TakeDamage(damage);
+                }
+            }
+            else
+            {
+                if (angle > attackAngle / 2f)
+                {
+                    hit.GetComponentInParent<EnemySlime>()?.TakeDamage(damage);
+                }
+            }
+            
         }
     }
 

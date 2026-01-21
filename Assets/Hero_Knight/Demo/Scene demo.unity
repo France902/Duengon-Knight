@@ -240,6 +240,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 --- !u!1 &237015199
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,10 +340,15 @@ Mesh:
 --- !u!43 &179859385
 Mesh:
 >>>>>>> Stashed changes
+=======
+--- !u!43 &179859385
+Mesh:
+>>>>>>> Stashed changes
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
   m_GameObject: {fileID: 370063969}
@@ -374,6 +380,9 @@ Transform:
 --- !u!1001 &467244360
 =======
   m_Name: 
+=======
+  m_Name: 
+>>>>>>> Stashed changes
 =======
   m_Name: 
 >>>>>>> Stashed changes
@@ -537,6 +546,9 @@ Transform:
     path: 
 --- !u!1001 &222490832
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -1884,6 +1896,9 @@ Mesh:
     size: 0
     path: 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -2106,8 +2121,11 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 4219881ac4b3db94685eb0d24df6988f, type: 3}
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 --- !u!1001 &1038027459
 =======
+=======
+>>>>>>> Stashed changes
 --- !u!43 &1088903549
 Mesh:
   m_ObjectHideFlags: 0
@@ -2274,6 +2292,9 @@ Mesh:
     size: 0
     path: 
 --- !u!1001 &1133808521
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2282,6 +2303,7 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+<<<<<<< Updated upstream
     - target: {fileID: 311356821226034865, guid: 43b9bfeb29823874da3861c8bc1a48f8, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -2434,6 +2456,56 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7911906076987587718, guid: 43b9bfeb29823874da3861c8bc1a48f8, type: 3}
   m_PrefabInstance: {fileID: 1038027459}
 =======
+=======
+    - target: {fileID: 436917940258105860, guid: fa6572af73bbba047a093e5f0fac7a35, type: 3}
+      propertyPath: m_Name
+      value: ExpanderSpawnRange
+      objectReference: {fileID: 0}
+    - target: {fileID: 7604361846105973970, guid: fa6572af73bbba047a093e5f0fac7a35, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.713
+      objectReference: {fileID: 0}
+    - target: {fileID: 7604361846105973970, guid: fa6572af73bbba047a093e5f0fac7a35, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.062
+      objectReference: {fileID: 0}
+    - target: {fileID: 7604361846105973970, guid: fa6572af73bbba047a093e5f0fac7a35, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.086178765
+      objectReference: {fileID: 0}
+    - target: {fileID: 7604361846105973970, guid: fa6572af73bbba047a093e5f0fac7a35, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7604361846105973970, guid: fa6572af73bbba047a093e5f0fac7a35, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7604361846105973970, guid: fa6572af73bbba047a093e5f0fac7a35, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7604361846105973970, guid: fa6572af73bbba047a093e5f0fac7a35, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7604361846105973970, guid: fa6572af73bbba047a093e5f0fac7a35, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7604361846105973970, guid: fa6572af73bbba047a093e5f0fac7a35, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7604361846105973970, guid: fa6572af73bbba047a093e5f0fac7a35, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+>>>>>>> Stashed changes
   m_SourcePrefab: {fileID: 100100000, guid: fa6572af73bbba047a093e5f0fac7a35, type: 3}
 --- !u!43 &1176985977
 Mesh:
@@ -2604,14 +2676,21 @@ Mesh:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5423016145595568985, guid: 4219881ac4b3db94685eb0d24df6988f, type: 3}
   m_PrefabInstance: {fileID: 1010998306}
+<<<<<<< Updated upstream
 >>>>>>> Stashed changes
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1089373153
 GameObject:
+=======
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1219621837
+MonoBehaviour:
+>>>>>>> Stashed changes
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
   serializedVersion: 6
   m_Component:
@@ -2627,6 +2706,8 @@ GameObject:
 --- !u!4 &1089373154
 Transform:
 =======
+=======
+>>>>>>> Stashed changes
   m_GameObject: {fileID: 1219621834}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -2823,11 +2904,15 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1323379468
 MonoBehaviour:
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
   m_GameObject: {fileID: 1089373153}
   serializedVersion: 2
@@ -3528,6 +3613,8 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
 =======
+=======
+>>>>>>> Stashed changes
   m_GameObject: {fileID: 1323379465}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -3556,6 +3643,9 @@ PrefabInstance:
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
   m_Modification:
     serializedVersion: 3
@@ -3576,7 +3666,11 @@ PrefabInstance:
     - target: {fileID: 1313068451366905853, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_ShadowIntensity
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
       value: 1
+=======
+      value: 0.192
+>>>>>>> Stashed changes
 =======
       value: 0.192
 >>>>>>> Stashed changes
@@ -3620,17 +3714,23 @@ PrefabInstance:
     - target: {fileID: 1313068451366905853, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_PointLightOuterRadius
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
       value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 1313068451366905853, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_ShadowVolumeIntensity
       value: 0.487
 =======
+=======
+>>>>>>> Stashed changes
       value: 1.17
       objectReference: {fileID: 0}
     - target: {fileID: 1313068451366905853, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_ShadowVolumeIntensity
       value: 0.382
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 1313068451366905853, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
@@ -3763,7 +3863,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1313068451366905853, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
       propertyPath: m_LightVolumeIntensityEnabled
       value: 0
       objectReference: {fileID: 0}
@@ -3772,6 +3875,9 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1313068451366905853, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
       propertyPath: m_ApplyToSortingLayers.Array.size
       value: 1
@@ -4343,6 +4449,9 @@ SpriteRenderer:
     m_Center: {x: 0.0000009536743, y: -0.0000009536743, z: 0}
     m_Extent: {x: 5.120002, y: 2.88, z: 0}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -4855,7 +4964,10 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 091edcb5ca6d1f9479cdbca9f8db8ef0, type: 3}
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 --- !u!43 &1965222590

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3844148984041312097}
   - component: {fileID: 5898180042549717268}
   - component: {fileID: 5554440411892237796}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: WeaponHitBox
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 4977161878017128101}
   - component: {fileID: 7681623571678811923}
   - component: {fileID: 6203728260384420611}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: hurtbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,7 +183,8 @@ GameObject:
   - component: {fileID: 6239311285435579077}
   - component: {fileID: 2498705464483328850}
   - component: {fileID: 9028695580009950389}
-  m_Layer: 3
+  - component: {fileID: 1793870622240180402}
+  m_Layer: 0
   m_Name: MC
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -228,7 +229,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 4cadc4a9ccc7d804cbf581270ab990ad, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -301,8 +302,8 @@ MonoBehaviour:
   maxHealth: 5
   alreadyHurt: 0
   isDead: 0
-  speed: 0.7
-  jumpForce: 2.1
+  speed: 0.6
+  jumpForce: 2
   attackRange: 0.15
   immunity: 0
   enemyLayer:
@@ -342,6 +343,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1793870622240180402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8199178676319485806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c174c985fdec13642a0bd538a22670a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8411626824437392993
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,7 +366,7 @@ GameObject:
   - component: {fileID: 3033539505457846697}
   - component: {fileID: 1050892124939678860}
   - component: {fileID: 4346257908334699576}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: MovementCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

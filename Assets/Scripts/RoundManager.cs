@@ -22,7 +22,7 @@ public class RoundManager : MonoBehaviour
     // Coroutine che gestisce l'intera sequenza
     private IEnumerator ShowRoundSequence()
     {
-        roundText.text = "ROUND " + (roundFought + 1);
+        roundText.text = (roundFought + 1) + "° ONDATA";
         roundFought++;
         // 1. Fade In
         yield return StartCoroutine(FadeText(0, 1));

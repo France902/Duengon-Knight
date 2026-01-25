@@ -12,6 +12,7 @@ public class WaveManager : MonoBehaviour
     [Header("Impostazioni")]
     public float delayBetweenEnemies = 0.5f;
     public RoundManager roundManager;
+    public PositionPlayerManager playerPos;
 
     private GameObject spawnParent;
     private bool isSpawning = true;
@@ -21,6 +22,7 @@ public class WaveManager : MonoBehaviour
     void Start()
     {
         spawnParent = GameObject.FindWithTag("World Enemies");
+        playerPos = FindObjectOfType<PositionPlayerManager>();
 
         // Controllo di sicurezza: gli array devono avere la stessa lunghezza
         if (spawnOnLeft.Length != enemiesToSpawn.Length)
@@ -31,18 +33,23 @@ public class WaveManager : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(isSpawning);
         if (isSpawning && !waveInProgress && !roundManager.isCutscene)
         {
             if (spawnParent != null && spawnParent.transform.childCount == 0)
             {
-                if (currentEnemyIndex < enemiesToSpawn.Length)
+                if (currentEnemyIndex < enemiesToSpawn.Length && playerPos.isInArena)
                 {
                     roundManager.setIsCutscene(true);
                     StartCoroutine(WaitAndThenSpawn());
                 }
                 else
                 {
-                    isSpawning = false;
+                    if (currentEnemyIndex >= enemiesToSpawn.Length)
+                    {
+                        playerPos.isInArena = false;
+                        isSpawning = false;
+                    }
                 }
             }
         }
@@ -80,6 +87,7 @@ public class WaveManager : MonoBehaviour
             
             
         }
+
         waveInProgress = false;
     }
 

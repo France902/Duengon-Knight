@@ -12,6 +12,8 @@ TagManager:
   - enemySlime
   - Alternative spawnRange
   - Alternative spawn
+  - Door
+  - SolidHitboxDoor
   layers:
   - Default
   - TransparentFX

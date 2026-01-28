@@ -32,10 +32,8 @@ public class PositionPlayerManager : MonoBehaviour
         }
     }
 
-    // Funzione unificata per gestire ordine e hitbox solide
     void SetAllDoorsState(int newOrder, bool collidersActive)
     {
-        // 1. Gestione Visuale (Tag "Door")
         GameObject[] doors = GameObject.FindGameObjectsWithTag("Door");
         foreach (GameObject door in doors)
         {
@@ -46,7 +44,6 @@ public class PositionPlayerManager : MonoBehaviour
             }
         }
 
-        // 2. Gestione Fisica (Tag "SolidHitboxDoor")
         GameObject[] solidHitboxes = GameObject.FindGameObjectsWithTag("SolidHitboxDoor");
         foreach (GameObject hitbox in solidHitboxes)
         {

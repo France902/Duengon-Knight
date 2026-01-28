@@ -19,24 +19,19 @@ public class RoundManager : MonoBehaviour
         if (isCutscene) StartCoroutine(ShowRoundSequence());
     }
 
-    // Coroutine che gestisce l'intera sequenza
     private IEnumerator ShowRoundSequence()
     {
         roundText.text = (roundFought + 1) + "° ONDATA";
         roundFought++;
-        // 1. Fade In
         yield return StartCoroutine(FadeText(0, 1));
 
-        // 2. Attesa
         yield return new WaitForSeconds(displayDuration);
 
-        // 3. Fade Out
         yield return StartCoroutine(FadeText(1, 0));
 
-        isCutscene = false; // Fine della sequenza
+        isCutscene = false; 
     }
 
-    // Metodo generico per cambiare l'opacità
     private IEnumerator FadeText(float startAlpha, float endAlpha)
     {
         float elapsed = 0f;

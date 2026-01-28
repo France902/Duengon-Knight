@@ -8,8 +8,8 @@ public class EnemySlimeAI : EnemySlime
     public string type = "slime";
 
     [Header("Chase Offset")]
-    public float stopOffset = 0.6f;        // distanza laterale dal player
-    public float stopTolerance = 0.05f;    // zona morta anti jitter
+    public float stopOffset = 0.6f;        
+    public float stopTolerance = 0.05f;    
 
     public PlayerAttack playerScript;
     private Transform playerTransform;
@@ -35,7 +35,7 @@ public class EnemySlimeAI : EnemySlime
         if (playerObj != null)
         {
             playerTransform = playerObj.transform;
-            // Otteniamo lo script attaccato al Player
+            
             playerScript = playerObj.GetComponent<PlayerAttack>();
         }
     }
@@ -88,12 +88,12 @@ public class EnemySlimeAI : EnemySlime
             inTouchPlayer = false;
         }
 
-        // 4. Movimento
+        
         Vector2 dir = (targetPos - (Vector2)transform.position).normalized;
         transform.Translate(dir * speed * Time.deltaTime);
     }
 
-    private Collider2D weaponCollider; // Referenza per il reset
+    private Collider2D weaponCollider; 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -101,25 +101,25 @@ public class EnemySlimeAI : EnemySlime
         {
             int enemyLayerIndex = LayerMask.NameToLayer("enemyLayer");
 
-            // 1. Se l'oggetto è l'arma (tag weapon)
+            
             if (collision.CompareTag("weapon"))
             {
                 weaponCollider = collision.GetComponent<Collider2D>();
                 if (weaponCollider != null)
                 {
-                    // Imposta l'exclude layer verso il nemico
-                    // Usiamo lo spostamento bit a bit (1 << layerIndex) per creare la maschera
+                    
+                    
                     weaponCollider.excludeLayers = (1 << enemyLayerIndex);
                 }
             }
 
-            // 2. Logica originale per il nemico
+           
             if (collision.gameObject.layer != enemyLayerIndex)
             {
                 return;
             }
 
-            // 3. Logica Player
+           
             if (collision.CompareTag("Player"))
             {
                 inTouchPlayer = true;
@@ -133,10 +133,9 @@ public class EnemySlimeAI : EnemySlime
     {
         int enemyLayerIndex = LayerMask.NameToLayer("enemyLayer");
 
-        // Controlla se il layer dell'oggetto è quello nemico
         if (collision.gameObject.layer != enemyLayerIndex)
         {
-            return; // Esci dalla funzione: non eseguire il resto del codice
+            return; 
         }
 
         if (collision.CompareTag("Player"))

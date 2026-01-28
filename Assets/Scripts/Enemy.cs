@@ -60,8 +60,6 @@ public class EnemySlime : MonoBehaviour
             isInHurt = false;
     }
 
-
-    // Animation Event alla fine della Death
     public void DestroySelf()
     {
         Destroy(gameObject);

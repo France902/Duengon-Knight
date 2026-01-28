@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.UI; // Necessario per gestire Image
+using UnityEngine.UI;
 
 public class HealthBarUI : MonoBehaviour
 {
@@ -8,7 +8,6 @@ public class HealthBarUI : MonoBehaviour
 
     void Start()
     {
-        // Trova il giocatore tramite il Tag
         GameObject player = GameObject.FindGameObjectWithTag("Player");
 
         if (player != null)
@@ -21,12 +20,9 @@ public class HealthBarUI : MonoBehaviour
     {
         if (playerScript != null && healthBarFill != null)
         {
-            // Calcoliamo il rapporto tra salute attuale e massima
-            // Poiché Fill Amount va da 0 a 1, dividiamo la salute per 5
             
             float fillValue = playerScript.health / playerScript.maxHealth;
 
-            // Applichiamo il valore all'immagine
             healthBarFill.fillAmount = fillValue;
         }
     }

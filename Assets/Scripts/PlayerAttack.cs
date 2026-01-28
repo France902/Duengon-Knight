@@ -59,10 +59,8 @@ public class PlayerAttack : MonoBehaviour
 
         if (isDead) return;
 
-        // INPUT MOVIMENTO
         moveInput = Input.GetAxisRaw("Horizontal");
 
-        // FLIP SPRITE
         if (moveInput > 0)
         {
             sr.flipX = false;
@@ -78,8 +76,6 @@ public class PlayerAttack : MonoBehaviour
             movementColliderLogic.setLeftOffset();
         }
             
-
-        // MOVIMENTO (SEMPRE)
         if (moveInput != 0 && !alreadyHurt && !isDead)
         {
             anim.SetBool("run", true);
@@ -90,7 +86,6 @@ public class PlayerAttack : MonoBehaviour
             anim.SetBool("run", false);
         }
 
-        // JUMP
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             isGrounded = false;
@@ -98,7 +93,6 @@ public class PlayerAttack : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
 
-        // ATTACK 1
         if ((!isAttacking || typeAttack == "heavy_confirmed") && Input.GetMouseButtonDown(0))
         {
             isAttacking = true;
@@ -109,7 +103,6 @@ public class PlayerAttack : MonoBehaviour
             typeAttack = "base";
         }
 
-        // ATTACK 2
         if (!isAttacking && Input.GetMouseButtonDown(1) && hudManager.timerHeavy == 0)
         {
             isAttacking = true;
@@ -124,7 +117,7 @@ public class PlayerAttack : MonoBehaviour
 
     public Transform attackPoint;
 
-    public float attackAngle = 180f; // 180 gradi è un semicerchio perfetto
+    public float attackAngle = 180f; 
 
     public void DealDamage()
     {
@@ -133,15 +126,10 @@ public class PlayerAttack : MonoBehaviour
         foreach (var hit in hits)
         {
 
-            // 1. Calcola la direzione verso il nemico
             Vector3 directionToEnemy = (hit.transform.position - transform.position).normalized;
 
-            // 2. Calcola l'angolo tra la direzione in cui guarda il player (transform.right o transform.up) e il nemico
-            // Se il tuo player guarda a destra, usa transform.right
             float angle = Vector3.Angle(transform.right, directionToEnemy);
 
-
-            // 3. Se l'angolo è entro la metà del nostro raggio d'azione (es. 90 gradi a sx e 90 a dx)
             if(!sr.flipX)
             {
                 if (angle < attackAngle / 2f)
@@ -182,7 +170,7 @@ public class PlayerAttack : MonoBehaviour
 
     public IEnumerator ExecuteAttackShutdown()
     {
-        // Aspetta per il numero di secondi specificato in shutdownAttack
+
         switch (typeAttack)
         {
             case "base":
@@ -195,7 +183,6 @@ public class PlayerAttack : MonoBehaviour
 
         isAttacking = false;
 
-        // Se è null, prova a cercarlo un'ultima volta
         if (weaponLogic == null)
         {
             weaponLogic = GetComponentInChildren<WeaponLogic>(true);
@@ -203,7 +190,6 @@ public class PlayerAttack : MonoBehaviour
 
         if (weaponLogic != null)
         {
-            // Imposta l'esclusione (true per escludere i nemici dal colpo)
             weaponLogic.SetEnemyExclusion(true);
         }
     }
@@ -230,8 +216,7 @@ public class PlayerAttack : MonoBehaviour
 
         if (!alreadyHurt && !isAttacking)
         {
-            // Usiamo una variabile generica che può ospitare entrambi i tipi
-            // Sostituisci "EnemyBase" con il nome della classe da cui ereditano entrambi
+
             EnemySlime enemy;
 
             if (other.CompareTag("enemySlime"))
@@ -243,7 +228,6 @@ public class PlayerAttack : MonoBehaviour
                 enemy = other.GetComponentInParent<EnemyAIGeneric>();
             }
 
-            // Se l'oggetto ha uno dei due componenti ed è vivo
             if (enemy != null)
             {
                 takeHit(enemy, other);
@@ -267,18 +251,14 @@ public class PlayerAttack : MonoBehaviour
             alreadyHurt = true;
             immunity = true;
 
-            // 1. Calcola la direzione (già fatto col tuo flip)
             bool enemyFlip = enemy.getFlipX();
             if(enemy.CompareTag("enemySlime")) moveInput = enemyFlip ? +1 : -1;
             else moveInput = enemyFlip ? -1 : +1;
 
-            // 2. Calcola la distanza tra Player e Slime
             float distance = Vector2.Distance(transform.position, enemy.transform.position);
 
-            // 3. Applica la formula del Knockback dinamico
             float knockbackForce = 0.01f / (distance + 0.005f);
 
-            // Limita la forza massima per evitare "salti" eccessivi se sono vicinissimi
             knockbackForce = Mathf.Clamp(knockbackForce, 0.1f, 0.5f);
 
             anim.SetBool("takeHit", true);
@@ -302,7 +282,6 @@ public class PlayerAttack : MonoBehaviour
 
     public void StartImmunityCooldown()
     {
-        // Chiama la funzione 'RemoveImmunity' dopo 0.5 secondi
         Invoke("RemoveImmunity", 0.5f);
     }
 
@@ -314,7 +293,7 @@ public class PlayerAttack : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
-        // Se usi attackPoint.position, usa quella qui sopra
+
     }
 
     public void Die()

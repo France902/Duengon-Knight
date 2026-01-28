@@ -9,8 +9,8 @@ public class EnemyAIGeneric : EnemySlime
     public float jumpForce = 1f;
 
     [Header("Chase Offset")]
-    public float stopOffset = 0.6f;        // distanza laterale dal player
-    public float stopTolerance = 0.05f;    // zona morta anti jitter
+    public float stopOffset = 0.6f;        
+    public float stopTolerance = 0.05f;    
     public string type;
 
     public PlayerAttack playerScript;
@@ -42,7 +42,7 @@ public class EnemyAIGeneric : EnemySlime
         if (playerObj != null)
         {
             playerTransform = playerObj.transform;
-            // Otteniamo lo script attaccato al Player
+            
             playerScript = playerObj.GetComponent<PlayerAttack>();
         }
     }
@@ -73,7 +73,7 @@ public class EnemyAIGeneric : EnemySlime
     {
         if (isDead) return;
 
-        // 1. Calcoli base
+       
         float side = transform.position.x < playerTransform.position.x ? -1f : 1f;
         sr.flipX = (playerTransform.position.x - transform.position.x) <= 0;
 
@@ -82,24 +82,19 @@ public class EnemyAIGeneric : EnemySlime
         float verticalDiff = playerTransform.position.y - transform.position.y;
         float verticalDistAbs = Mathf.Abs(verticalDiff);
 
-        // --- LOGICA DI SALTO E EVITAMENTO OSTACOLI ---
         if (verticalDiff > 0.1f && !isAttacking && (distToTarget <= stopTolerance || isRepositioning) && playerScript.getIsGrounded())
         {
-            // Usiamo un BoxCast invece di un Raycast per simulare la larghezza del Goblin
-            // Dimensione del box (larghezza 0.5f, altezza 0.1f). Regola la larghezza se necessario.
             Vector2 boxSize = new Vector2(0.15f, 0.1f);
             float rayLength = 2.0f;
 
             RaycastHit2D hit = Physics2D.BoxCast(transform.position, boxSize, 0f, Vector2.up, rayLength, LayerMask.GetMask("Ground"));
 
-            // Visualizzazione per Debug del BoxCast
             if (hit.collider != null)
             {
                 isRepositioning = true;
                 if (repositionDir == 0f)
                     repositionDir = (transform.position.x < playerTransform.position.x) ? -1f : 1f;
 
-                // Muoviti lateralmente
                 if(repositionDir == -1f) sr.flipX = true;
                 else sr.flipX = false;
                 transform.Translate(new Vector2(repositionDir, 0) * speed * Time.deltaTime);
@@ -107,15 +102,11 @@ public class EnemyAIGeneric : EnemySlime
             }
             else
             {
-                // Se non tocca più nulla, aggiungiamo un piccolo spostamento extra prima di saltare
-                // per assicurarci che non sia proprio sul bordo (margine di sicurezza)
                 if (isRepositioning)
                 {
-                    // Spinta finale laterale per liberare completamente la testa
                     transform.Translate(new Vector2(repositionDir, 0) * speed * Time.deltaTime);
                 }
 
-                // SOFFITTO LIBERO: Salta
                 isRepositioning = false;
                 repositionDir = 0f;
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
@@ -129,7 +120,6 @@ public class EnemyAIGeneric : EnemySlime
             repositionDir = 0f;
         }
 
-        // 2. Controllo distanza per ATTACCO/IDLE
         if (distToTarget <= stopTolerance && verticalDistAbs <= 0.1f)
         {
             if (isAttacking) return;
@@ -145,7 +135,6 @@ public class EnemyAIGeneric : EnemySlime
             moveable = true;
         }
 
-        // 3. Movimento Orizzontale standard
         if (moveable && !isRepositioning)
         {
             anim.SetBool("idle", false);
@@ -154,7 +143,7 @@ public class EnemyAIGeneric : EnemySlime
             transform.Translate(dir * speed * Time.deltaTime);
         }
     }
-    private Collider2D weaponCollider; // Referenza per il reset
+    private Collider2D weaponCollider; 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -162,25 +151,21 @@ public class EnemyAIGeneric : EnemySlime
         {
             int enemyLayerIndex = LayerMask.NameToLayer("enemyLayer");
 
-            // 1. Se l'oggetto è l'arma (tag weapon)
             if (collision.CompareTag("weapon"))
             {
                 weaponCollider = collision.GetComponent<Collider2D>();
                 if (weaponCollider != null)
                 {
-                    // Imposta l'exclude layer verso il nemico
-                    // Usiamo lo spostamento bit a bit (1 << layerIndex) per creare la maschera
+                    
                     weaponCollider.excludeLayers = (1 << enemyLayerIndex);
                 }
             }
 
-            // 2. Logica originale per il nemico
             if (collision.gameObject.layer != enemyLayerIndex)
             {
                 return;
             }
 
-            // 3. Logica Player
             if (collision.CompareTag("Player"))
             {
                 inTouchPlayer = true;
@@ -194,10 +179,9 @@ public class EnemyAIGeneric : EnemySlime
     {
         int enemyLayerIndex = LayerMask.NameToLayer("enemyLayer");
 
-        // Controlla se il layer dell'oggetto è quello nemico
         if (collision.gameObject.layer != enemyLayerIndex)
         {
-            return; // Esci dalla funzione: non eseguire il resto del codice
+            return; 
         }
 
         if (collision.CompareTag("Player"))

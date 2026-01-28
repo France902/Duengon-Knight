@@ -1,4 +1,3 @@
-// Script sull'oggetto Arma o sul sensore
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -17,12 +16,10 @@ public class WeaponLogic : MonoBehaviour
 
         if (exclude)
         {
-            // Esclude il layer nemico
             myCollider.excludeLayers = (1 << enemyLayerIndex);
         }
         else
         {
-            // Rimuove tutte le esclusioni
             myCollider.excludeLayers = 0;
         }
     }

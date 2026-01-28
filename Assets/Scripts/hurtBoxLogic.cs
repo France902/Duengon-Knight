@@ -5,7 +5,6 @@ using UnityEngine;
 public class HurtBoxLogic: MonoBehaviour
 {
     private CapsuleCollider2D capsuleCollider;
-    // Start is called before the first frame update
     void Start()
     {
         capsuleCollider = GetComponent<CapsuleCollider2D>();

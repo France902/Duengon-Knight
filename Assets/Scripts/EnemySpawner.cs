@@ -5,9 +5,9 @@ using System.Collections.Generic;
 public class WaveManager : MonoBehaviour
 {
     [Header("Configurazione Ondata")]
-    // Usiamo due array separati per evitare errori di classe custom
+    
     public GameObject[] enemiesToSpawn;
-    public bool[] spawnOnLeft; // Spunta la casella se il nemico deve andare a sinistra
+    public bool[] spawnOnLeft; 
 
     [Header("Impostazioni")]
     public float delayBetweenEnemies = 0.5f;
@@ -24,7 +24,7 @@ public class WaveManager : MonoBehaviour
         spawnParent = GameObject.FindWithTag("World Enemies");
         playerPos = FindObjectOfType<PositionPlayerManager>();
 
-        // Controllo di sicurezza: gli array devono avere la stessa lunghezza
+        
         if (spawnOnLeft.Length != enemiesToSpawn.Length)
         {
             Debug.LogWarning("Attenzione: L'array dei booleani non ha la stessa lunghezza dell'array dei nemici!");
@@ -73,7 +73,6 @@ public class WaveManager : MonoBehaviour
                 break;
             }
 
-            // Recuperiamo la condizione dall'array booleano corrispondente
             bool isLeft = false;
             if (currentEnemyIndex < spawnOnLeft.Length)
             {
@@ -106,7 +105,6 @@ public class WaveManager : MonoBehaviour
 
         if (leftSide)
         {
-            // LOGICA SINISTRA
             GameObject altSpawn = GameObject.FindWithTag("Alternative spawn");
             GameObject altRange = GameObject.FindWithTag("Alternative spawnRange");
 
@@ -120,7 +118,6 @@ public class WaveManager : MonoBehaviour
             }
         }
 
-        // LOGICA DESTRA (DEFAULT)
         minX = transform.position.x;
         maxX = transform.position.x;
         minZ = transform.position.z;

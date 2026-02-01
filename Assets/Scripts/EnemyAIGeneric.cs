@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Unity.Burst.Intrinsics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyAIGeneric : EnemySlime
@@ -19,6 +20,7 @@ public class EnemyAIGeneric : EnemySlime
     private Transform playerTransform;
     private RoundManager roundManager;
     private Rigidbody2D rb;
+    public BoxCollider2D colliderExtender;
     private bool inTouchPlayer = false;
     private bool isAttacking = false;
     private Boolean moveable = true;
@@ -226,19 +228,34 @@ public class EnemyAIGeneric : EnemySlime
         {
             int sceltaCombo = UnityEngine.Random.Range(1, 3);
             combo = true;
-            if(sceltaCombo == 1)
+            if (sceltaCombo == 1)
             {
-                if(attackDid == "attack1") anim.SetTrigger("attack2");
+                if (attackDid == "attack1") anim.SetTrigger("attack2");
                 else anim.SetTrigger("attack");
+                
+                Vector3 currentScale = colliderExtender.transform.localScale;
+                colliderExtender.transform.localScale = new Vector3(1f, currentScale.y, currentScale.z);
+               
                 playerScript.takeHit(this, null);
 
-            } else combo = false;
+            }
+            else
+            {
+                combo = false;
+                Vector3 currentScale = colliderExtender.transform.localScale;
+                colliderExtender.transform.localScale = new Vector3(0.3f, currentScale.y, currentScale.z);
+
+            }
         } else
         {
             combo = false;
             isAttacking = false;
+
+            Vector3 currentScale = colliderExtender.transform.localScale;
+            colliderExtender.transform.localScale = new Vector3(0.3f, currentScale.y, currentScale.z);
+
         }
-            
+
         if (inTouchPlayer && !isDead)
         {
             

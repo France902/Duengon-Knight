@@ -310,10 +310,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3025732723455239464, guid: 3419237b5e0a18a4d921996a57f9fcb4, type: 3}
-      propertyPath: type
-      value: skeleton
-      objectReference: {fileID: 0}
-    - target: {fileID: 3025732723455239464, guid: 3419237b5e0a18a4d921996a57f9fcb4, type: 3}
       propertyPath: playerScript
       value: 
       objectReference: {fileID: 339966592}

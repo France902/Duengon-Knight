@@ -1,10 +1,12 @@
 using System;
 using System.Collections;
+using Unity.Burst.Intrinsics;
 using UnityEngine;
 
 public class EnemyAIGeneric : EnemySlime
 {
     public float speed = 2f;
+    public int[] damageAttack = {0, 0};
     public float chaseDistance = 4f;
     public float jumpForce = 1f;
 
@@ -20,6 +22,8 @@ public class EnemyAIGeneric : EnemySlime
     private bool inTouchPlayer = false;
     private bool isAttacking = false;
     private Boolean moveable = true;
+    private bool combo = false;
+    private string attackDid = "";
 
 
     private enum State { Idle, Chase }
@@ -193,7 +197,7 @@ public class EnemyAIGeneric : EnemySlime
 
     public void attack()
     {
-        
+        Debug.Log(inTouchPlayer && !isDead && !isAttacking && !isInHurt);
         if (inTouchPlayer && !isDead && !isAttacking && !isInHurt)
         {
             isAttacking = true;
@@ -201,12 +205,14 @@ public class EnemyAIGeneric : EnemySlime
 
             if (sceltaAttacco == 1)
             {
-                damage = 1;
+                damage = damageAttack[0];
+                attackDid = "attack1";
                 anim.SetTrigger("attack");
             }
             else
             {
-                damage = 2;
+                damage = damageAttack[1];
+                attackDid = "attack2";
                 anim.SetTrigger("attack2");
             }
 
@@ -216,7 +222,23 @@ public class EnemyAIGeneric : EnemySlime
 
     public void finishAttack()
     {
-        isAttacking = false;
+        if(type == "skeleton" && !combo)
+        {
+            int sceltaCombo = UnityEngine.Random.Range(1, 3);
+            combo = true;
+            if(sceltaCombo == 1)
+            {
+                if(attackDid == "attack1") anim.SetTrigger("attack2");
+                else anim.SetTrigger("attack");
+                playerScript.takeHit(this, null);
+
+            } else combo = false;
+        } else
+        {
+            combo = false;
+            isAttacking = false;
+        }
+            
         if (inTouchPlayer && !isDead)
         {
             

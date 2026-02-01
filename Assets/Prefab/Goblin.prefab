@@ -311,6 +311,7 @@ MonoBehaviour:
   hp: 2
   damage: 2
   speed: 0.25
+  damageAttack: 0100000002000000
   chaseDistance: 3
   jumpForce: 2.5
   stopOffset: 0.07

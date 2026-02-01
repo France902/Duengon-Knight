@@ -308,12 +308,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33b935636285d3d49b9f7cf2fdee17c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 2
+  hp: 4
   damage: 2
   speed: 0.25
+  damageAttack: 0100000001000000
   chaseDistance: 3
   jumpForce: 2.5
   stopOffset: 0.07
   stopTolerance: 0.05
-  type: goblin
+  type: skeleton
   playerScript: {fileID: 0}

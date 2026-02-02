@@ -138,7 +138,6 @@ public class EnemyAIGeneric : EnemySlime
         {
             inTouchPlayer = false;
             isAttacking = false;
-            moveable = true;
         }
 
         if (moveable && !isRepositioning)
@@ -199,7 +198,7 @@ public class EnemyAIGeneric : EnemySlime
 
     public void attack()
     {
-        Debug.Log(inTouchPlayer && !isDead && !isAttacking && !isInHurt);
+        Debug.Log(inTouchPlayer);
         if (inTouchPlayer && !isDead && !isAttacking && !isInHurt)
         {
             isAttacking = true;
@@ -237,18 +236,19 @@ public class EnemyAIGeneric : EnemySlime
                 colliderExtender.transform.localScale = new Vector3(1f, currentScale.y, currentScale.z);
                
                 playerScript.takeHit(this, null);
-
+                StartCoroutine(ripristineMoveable(0.2f));
             }
             else
             {
-                combo = false;
+                StartCoroutine(SetComboAfterDelay(false, 0.5f));
                 Vector3 currentScale = colliderExtender.transform.localScale;
                 colliderExtender.transform.localScale = new Vector3(0.3f, currentScale.y, currentScale.z);
-
+                StartCoroutine(ripristineMoveable(0.2f));
             }
         } else
         {
-            combo = false;
+            StartCoroutine(SetComboAfterDelay(false, 0.5f));
+            StartCoroutine(ripristineMoveable(0.2f));
             isAttacking = false;
 
             Vector3 currentScale = colliderExtender.transform.localScale;
@@ -263,7 +263,7 @@ public class EnemyAIGeneric : EnemySlime
         }
 
         
-        StartCoroutine(ripristineMoveable(0.5f));
+        
     }
 
     private IEnumerator ripristineMoveable(float delay)
@@ -280,6 +280,17 @@ public class EnemyAIGeneric : EnemySlime
         isDead = true;
         speed = 0;
         
+    }
+
+    IEnumerator SetComboAfterDelay(bool state, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        setCombo(state);
+    }
+
+    public void setCombo(bool combo)
+    {
+        this.combo = combo;
     }
 
     public void Die()

@@ -282,7 +282,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void StartImmunityCooldown()
     {
-        Invoke("RemoveImmunity", 0.5f);
+        Invoke("RemoveImmunity", 0.07f);
     }
 
     private void RemoveImmunity()

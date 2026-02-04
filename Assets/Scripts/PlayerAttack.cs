@@ -125,27 +125,48 @@ public class PlayerAttack : MonoBehaviour
 
         foreach (var hit in hits)
         {
-
-            Vector3 directionToEnemy = (hit.transform.position - transform.position).normalized;
-
-            float angle = Vector3.Angle(transform.right, directionToEnemy);
-
-            if(!sr.flipX)
+            if(hit.name != "Collider" && hit.name != "colliderExtender")
             {
-                if (angle < attackAngle / 2f)
+                Vector3 directionToEnemy = (hit.transform.position - transform.position).normalized;
+
+                float angle = Vector3.Angle(transform.right, directionToEnemy);
+
+                if (!sr.flipX)
                 {
-                    
-                    hit.GetComponentInParent<EnemySlime>()?.TakeDamage(damage);
+                    if (angle < attackAngle / 2f)
+                    {
+                        var genericEnemy = hit.GetComponentInParent<EnemyAIGeneric>();
+
+                        int sceltaBlocco = UnityEngine.Random.Range(1, 3);
+
+                        if (genericEnemy != null && genericEnemy.type == "skeleton" && sceltaBlocco == 1)
+                        {
+                            StartCoroutine(genericEnemy.Block());
+                        }
+                        else
+                        {
+                            genericEnemy.TakeDamage(damage);
+                        }
+                    }
                 }
-            }
-            else
-            {
-                if (angle > attackAngle / 2f)
+                else
                 {
-                    hit.GetComponentInParent<EnemySlime>()?.TakeDamage(damage);
+                    if (angle > attackAngle / 2f)
+                    {
+                        var genericEnemy = hit.GetComponentInParent<EnemyAIGeneric>();
+
+                        int sceltaBlocco = UnityEngine.Random.Range(1, 3);
+
+                        if (genericEnemy != null && genericEnemy.type == "skeleton" && sceltaBlocco == 1)
+                        {
+                            StartCoroutine(genericEnemy.Block());
+                        }
+                        else genericEnemy.TakeDamage(damage);
+                    }
                 }
+
             }
-            
+
         }
     }
 
@@ -282,7 +303,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void StartImmunityCooldown()
     {
-        Invoke("RemoveImmunity", 0.07f);
+        Invoke("RemoveImmunity", 0.25f);
     }
 
     private void RemoveImmunity()

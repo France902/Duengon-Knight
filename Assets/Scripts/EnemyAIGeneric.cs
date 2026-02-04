@@ -23,6 +23,7 @@ public class EnemyAIGeneric : EnemySlime
     public BoxCollider2D colliderExtender;
     private bool inTouchPlayer = false;
     private bool isAttacking = false;
+    private bool isBlocking = false;
     private Boolean moveable = true;
     private bool combo = false;
     private string attackDid = "";
@@ -137,7 +138,6 @@ public class EnemyAIGeneric : EnemySlime
         else
         {
             inTouchPlayer = false;
-            isAttacking = false;
         }
 
         if (moveable && !isRepositioning)
@@ -198,8 +198,7 @@ public class EnemyAIGeneric : EnemySlime
 
     public void attack()
     {
-        Debug.Log(inTouchPlayer);
-        if (inTouchPlayer && !isDead && !isAttacking && !isInHurt)
+        if (inTouchPlayer && !isDead && !isAttacking && !isInHurt && !isBlocking)
         {
             isAttacking = true;
             int sceltaAttacco = UnityEngine.Random.Range(1, 3);
@@ -221,25 +220,37 @@ public class EnemyAIGeneric : EnemySlime
         }
     }
 
-    public void finishAttack()
+    public IEnumerator finishAttack()
     {
-        if(type == "skeleton" && !combo)
+
+        if (inTouchPlayer && !isDead)
+        {
+
+            playerScript.takeHit(this, null);
+        }
+
+
+        if (type == "skeleton" && !combo)
         {
             int sceltaCombo = UnityEngine.Random.Range(1, 3);
             combo = true;
             if (sceltaCombo == 1)
             {
+                anim.Play("idle");
+                yield return StartCoroutine(waitToAttack(0.05f));
+                yield return StartCoroutine(ripristineMoveable(0.2f));
                 if (attackDid == "attack1") anim.SetTrigger("attack2");
                 else anim.SetTrigger("attack");
+
                 
                 Vector3 currentScale = colliderExtender.transform.localScale;
-                colliderExtender.transform.localScale = new Vector3(1f, currentScale.y, currentScale.z);
+                colliderExtender.transform.localScale = new Vector3(0.7f, currentScale.y, currentScale.z);
                
-                playerScript.takeHit(this, null);
-                StartCoroutine(ripristineMoveable(0.2f));
+                
             }
             else
             {
+                isAttacking = false;
                 StartCoroutine(SetComboAfterDelay(false, 0.5f));
                 Vector3 currentScale = colliderExtender.transform.localScale;
                 colliderExtender.transform.localScale = new Vector3(0.3f, currentScale.y, currentScale.z);
@@ -254,16 +265,19 @@ public class EnemyAIGeneric : EnemySlime
             Vector3 currentScale = colliderExtender.transform.localScale;
             colliderExtender.transform.localScale = new Vector3(0.3f, currentScale.y, currentScale.z);
 
-        }
-
-        if (inTouchPlayer && !isDead)
-        {
-            
-            playerScript.takeHit(this, null);
-        }
-
+        } 
         
-        
+    }
+
+    public IEnumerator Block()
+    {
+        Debug.Log("si");
+        anim.SetTrigger("block");
+        moveable = false;
+        isBlocking = true;
+
+        yield return StartCoroutine(ripristineMoveable(0.2f));
+        isBlocking = false;
     }
 
     private IEnumerator ripristineMoveable(float delay)
@@ -286,6 +300,11 @@ public class EnemyAIGeneric : EnemySlime
     {
         yield return new WaitForSeconds(delay);
         setCombo(state);
+    }
+
+    IEnumerator waitToAttack(float delay)
+    {
+        yield return new WaitForSeconds(delay);
     }
 
     public void setCombo(bool combo)

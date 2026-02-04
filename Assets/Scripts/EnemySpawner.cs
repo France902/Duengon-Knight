@@ -33,7 +33,6 @@ public class WaveManager : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(isSpawning);
         if (isSpawning && !waveInProgress && !roundManager.isCutscene)
         {
             if (spawnParent != null && spawnParent.transform.childCount == 0)

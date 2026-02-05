@@ -138,8 +138,9 @@ public class EnemyAIGeneric : EnemySlime
         else
         {
             inTouchPlayer = false;
+            moveable = true;
         }
-
+        Debug.Log(moveable + " " + isRepositioning);
         if (moveable && !isRepositioning)
         {
             anim.SetBool("idle", false);
@@ -170,9 +171,10 @@ public class EnemyAIGeneric : EnemySlime
             {
                 return;
             }
-
+            Debug.Log(collision.tag);
             if (collision.CompareTag("Player"))
             {
+                
                 inTouchPlayer = true;
             }
         }
@@ -222,8 +224,8 @@ public class EnemyAIGeneric : EnemySlime
 
     public IEnumerator finishAttack()
     {
-
-        if (inTouchPlayer && !isDead)
+        if (isDead || isInHurt) yield return 0;
+        if (inTouchPlayer)
         {
 
             playerScript.takeHit(this, null);
@@ -262,8 +264,12 @@ public class EnemyAIGeneric : EnemySlime
             StartCoroutine(ripristineMoveable(0.2f));
             isAttacking = false;
 
-            Vector3 currentScale = colliderExtender.transform.localScale;
-            colliderExtender.transform.localScale = new Vector3(0.3f, currentScale.y, currentScale.z);
+            Vector3 currentScale;
+            if (type == "skeleton")
+            {
+                currentScale = colliderExtender.transform.localScale;
+                colliderExtender.transform.localScale = new Vector3(0.3f, currentScale.y, currentScale.z);
+            }
 
         } 
         
@@ -271,18 +277,18 @@ public class EnemyAIGeneric : EnemySlime
 
     public IEnumerator Block()
     {
-        Debug.Log("si");
+
         anim.SetTrigger("block");
         moveable = false;
         isBlocking = true;
 
         yield return StartCoroutine(ripristineMoveable(0.2f));
+        Debug.Log(moveable);
         isBlocking = false;
     }
 
     private IEnumerator ripristineMoveable(float delay)
     {
-        
         yield return new WaitForSeconds(delay);
 
         moveable = true;
@@ -294,6 +300,11 @@ public class EnemyAIGeneric : EnemySlime
         isDead = true;
         speed = 0;
         
+    }
+
+    public bool getIsAttacking()
+    {
+        return isAttacking;
     }
 
     IEnumerator SetComboAfterDelay(bool state, float delay)

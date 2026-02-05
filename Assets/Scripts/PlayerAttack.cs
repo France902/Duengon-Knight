@@ -139,13 +139,14 @@ public class PlayerAttack : MonoBehaviour
 
                         int sceltaBlocco = UnityEngine.Random.Range(1, 3);
 
-                        if (genericEnemy != null && genericEnemy.type == "skeleton" && sceltaBlocco == 1)
+                        if (genericEnemy != null && genericEnemy.type == "skeleton" && !genericEnemy.getIsAttacking() && sceltaBlocco == 1)
                         {
                             StartCoroutine(genericEnemy.Block());
                         }
                         else
                         {
-                            genericEnemy.TakeDamage(damage);
+                            if (genericEnemy == null || genericEnemy.type != "skeleton" && genericEnemy.type != "goblin") hit.GetComponentInParent<EnemySlime>()?.TakeDamage(damage);
+                            else genericEnemy.TakeDamage(damage);
                         }
                     }
                 }
@@ -161,7 +162,11 @@ public class PlayerAttack : MonoBehaviour
                         {
                             StartCoroutine(genericEnemy.Block());
                         }
-                        else genericEnemy.TakeDamage(damage);
+                        else
+                        {
+                            if(genericEnemy == null || (genericEnemy.type != "skeleton" && genericEnemy.type != "goblin")) hit.GetComponentInParent<EnemySlime>()?.TakeDamage(damage);
+                            else genericEnemy.TakeDamage(damage);
+                        }
                     }
                 }
 

@@ -264,6 +264,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void takeHit(EnemySlime enemy, Collider2D other)
     {
+        Debug.Log(immunity);
         if(!immunity)
         {
             if (health > 0) health -= enemy.damage;

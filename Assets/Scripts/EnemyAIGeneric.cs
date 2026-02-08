@@ -129,7 +129,9 @@ public class EnemyAIGeneric : EnemySlime
 
         if (distToTarget <= stopTolerance && verticalDistAbs <= 0.1f)
         {
+            Debug.Log("Entrato nell'intouch");
             if (isAttacking) return;
+            Debug.Log("confermato");
             anim.Play("idle");
             moveable = false;
             inTouchPlayer = true;
@@ -140,7 +142,6 @@ public class EnemyAIGeneric : EnemySlime
             inTouchPlayer = false;
             moveable = true;
         }
-        Debug.Log(moveable + " " + isRepositioning);
         if (moveable && !isRepositioning)
         {
             anim.SetBool("idle", false);
@@ -153,6 +154,7 @@ public class EnemyAIGeneric : EnemySlime
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        
         if(!playerScript.isAttacking)
         {
             int enemyLayerIndex = LayerMask.NameToLayer("enemyLayer");
@@ -171,10 +173,8 @@ public class EnemyAIGeneric : EnemySlime
             {
                 return;
             }
-            Debug.Log(collision.tag);
             if (collision.CompareTag("Player"))
             {
-                
                 inTouchPlayer = true;
             }
         }
@@ -224,13 +224,13 @@ public class EnemyAIGeneric : EnemySlime
 
     public IEnumerator finishAttack()
     {
+
         if (isDead || isInHurt) yield return 0;
         if (inTouchPlayer)
         {
 
             playerScript.takeHit(this, null);
         }
-
 
         if (type == "skeleton" && !combo)
         {
@@ -239,14 +239,14 @@ public class EnemyAIGeneric : EnemySlime
             if (sceltaCombo == 1)
             {
                 anim.Play("idle");
-                yield return StartCoroutine(waitToAttack(0.05f));
+                yield return StartCoroutine(waitToAttack(0.2f));
                 yield return StartCoroutine(ripristineMoveable(0.2f));
                 if (attackDid == "attack1") anim.SetTrigger("attack2");
                 else anim.SetTrigger("attack");
 
                 
                 Vector3 currentScale = colliderExtender.transform.localScale;
-                colliderExtender.transform.localScale = new Vector3(0.7f, currentScale.y, currentScale.z);
+                colliderExtender.transform.localScale = new Vector3(0.3f, currentScale.y, currentScale.z);
                
                 
             }
@@ -254,15 +254,17 @@ public class EnemyAIGeneric : EnemySlime
             {
                 isAttacking = false;
                 StartCoroutine(SetComboAfterDelay(false, 0.5f));
+                yield return StartCoroutine(waitToAttack(0.2f));
                 Vector3 currentScale = colliderExtender.transform.localScale;
                 colliderExtender.transform.localScale = new Vector3(0.3f, currentScale.y, currentScale.z);
                 StartCoroutine(ripristineMoveable(0.2f));
             }
         } else
         {
+            isAttacking = false;
             StartCoroutine(SetComboAfterDelay(false, 0.5f));
             StartCoroutine(ripristineMoveable(0.2f));
-            isAttacking = false;
+            
 
             Vector3 currentScale;
             if (type == "skeleton")

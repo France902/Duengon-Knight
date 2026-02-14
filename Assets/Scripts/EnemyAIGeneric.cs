@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using Unity.Burst.Intrinsics;
 using Unity.VisualScripting;
@@ -20,6 +20,8 @@ public class EnemyAIGeneric : EnemySlime
     private Transform playerTransform;
     private RoundManager roundManager;
     private Rigidbody2D rb;
+    private HurtBoxLogic HurtBoxLogic;
+    private MovementColliderLogic colliderExtenderLogic;
     public BoxCollider2D colliderExtender;
     private bool inTouchPlayer = false;
     private bool isAttacking = false;
@@ -27,6 +29,7 @@ public class EnemyAIGeneric : EnemySlime
     private Boolean moveable = true;
     private bool combo = false;
     private string attackDid = "";
+    private float wanderDirection = 0;
 
 
     private enum State { Idle, Chase }
@@ -36,6 +39,7 @@ public class EnemyAIGeneric : EnemySlime
     {
         roundManager = GameObject.FindAnyObjectByType<RoundManager>();
         playerScript = GameObject.FindObjectOfType<PlayerAttack>();
+        
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -45,6 +49,7 @@ public class EnemyAIGeneric : EnemySlime
         base.Awake();
         
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        
 
         if (playerObj != null)
         {
@@ -56,6 +61,8 @@ public class EnemyAIGeneric : EnemySlime
 
     void Update()
     {
+        HurtBoxLogic = GetComponentInChildren<HurtBoxLogic>();
+        colliderExtenderLogic = GetComponentInChildren<MovementColliderLogic>();
         if (isDead) return;
         if (roundManager.isCutscene) return;
 
@@ -80,14 +87,23 @@ public class EnemyAIGeneric : EnemySlime
     {
         if (isDead) return;
 
-       
         float side = transform.position.x < playerTransform.position.x ? -1f : 1f;
-        sr.flipX = (playerTransform.position.x - transform.position.x) <= 0;
+        if(!isRepositioning) sr.flipX = (playerTransform.position.x - transform.position.x) <= 0;
+        if(!sr.flipX)
+        {
+            HurtBoxLogic.setLeftOffset();
+            colliderExtenderLogic.setLeftOffset();
+        }
+        else
+        {
+            HurtBoxLogic.setRightOffset();
+            colliderExtenderLogic.setRightOffset();
+        }
 
-        Vector2 targetPos = new Vector2(playerTransform.position.x + side * stopOffset, transform.position.y);
+            Vector2 targetPos = new Vector2(playerTransform.position.x + side * stopOffset, transform.position.y);
         float distToTarget = Vector2.Distance(transform.position, targetPos);
         float verticalDiff = playerTransform.position.y - transform.position.y;
-        float verticalDistAbs = Mathf.Abs(verticalDiff);
+        
 
         if (verticalDiff > 0.1f && !isAttacking && (distToTarget <= stopTolerance || isRepositioning) && playerScript.getIsGrounded())
         {
@@ -121,13 +137,58 @@ public class EnemyAIGeneric : EnemySlime
                 return;
             }
         }
+        else if (verticalDiff < -0.1f && !isAttacking && (distToTarget <= stopTolerance || isRepositioning) && playerScript.getIsGrounded())
+        {
+            Debug.Log(wanderDirection);
+            isRepositioning = true;
+            Vector2 footCheckSize = new Vector2(0.4f, 0.12f);     
+            RaycastHit2D groundCheck = Physics2D.BoxCast(
+                transform.position + Vector3.down * 0.1f,
+                footCheckSize,
+                0f,
+                Vector2.down,
+                0.3f,
+                LayerMask.GetMask("Ground")
+            );
+
+            bool hasGroundBelow = groundCheck.collider != null;
+
+            if (!hasGroundBelow)
+            {
+                // Siamo già a un bordo / stiamo per cadere → fermiamoci un attimo e rivalutiamo dopo
+                rb.velocity = new Vector2(0f, rb.velocity.y);
+                // Qui potresti anche far partire un'animazione "guardo il vuoto" se ce l'hai
+                // Oppure aspettare che cada naturalmente
+                return;
+            }
+
+          
+            if (Mathf.Abs(wanderDirection) == 0f)   // non abbiamo ancora una direzione attiva
+            {
+                // Scelta casuale: 50% sinistra, 50% destra
+                wanderDirection = UnityEngine.Random.value < 0.5f ? -1f : 1f;
+                
+            }
+
+            // Applichiamo il movimento
+            float horizontalSpeed = wanderDirection * speed * Time.deltaTime;
+            transform.Translate(new Vector2(horizontalSpeed, 0f));
+
+            // Flip dello sprite (classico)
+            if (wanderDirection != 0f)
+            {
+                sr.flipX = wanderDirection < 0;
+            }
+
+        }
         else
         {
             isRepositioning = false;
             repositionDir = 0f;
+            wanderDirection = 0f;   
         }
 
-        if (distToTarget <= stopTolerance && verticalDistAbs <= 0.1f)
+        if (distToTarget <= stopTolerance && verticalDiff <= 0.1f && verticalDiff >= -0.1f)
         {
             Debug.Log("Entrato nell'intouch");
             if (isAttacking) return;
@@ -232,48 +293,10 @@ public class EnemyAIGeneric : EnemySlime
             playerScript.takeHit(this, null);
         }
 
-        if (type == "skeleton" && !combo)
-        {
-            int sceltaCombo = UnityEngine.Random.Range(1, 3);
-            combo = true;
-            if (sceltaCombo == 1)
-            {
-                anim.Play("idle");
-                yield return StartCoroutine(waitToAttack(0.2f));
-                yield return StartCoroutine(ripristineMoveable(0.2f));
-                if (attackDid == "attack1") anim.SetTrigger("attack2");
-                else anim.SetTrigger("attack");
-
-                
-                Vector3 currentScale = colliderExtender.transform.localScale;
-                colliderExtender.transform.localScale = new Vector3(0.3f, currentScale.y, currentScale.z);
-               
-                
-            }
-            else
-            {
-                isAttacking = false;
-                StartCoroutine(SetComboAfterDelay(false, 0.5f));
-                yield return StartCoroutine(waitToAttack(0.2f));
-                Vector3 currentScale = colliderExtender.transform.localScale;
-                colliderExtender.transform.localScale = new Vector3(0.3f, currentScale.y, currentScale.z);
-                StartCoroutine(ripristineMoveable(0.2f));
-            }
-        } else
-        {
             isAttacking = false;
             StartCoroutine(SetComboAfterDelay(false, 0.5f));
             StartCoroutine(ripristineMoveable(0.2f));
-            
-
-            Vector3 currentScale;
-            if (type == "skeleton")
-            {
-                currentScale = colliderExtender.transform.localScale;
-                colliderExtender.transform.localScale = new Vector3(0.3f, currentScale.y, currentScale.z);
-            }
-
-        } 
+ 
         
     }
 

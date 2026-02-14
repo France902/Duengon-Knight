@@ -1,15 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class PositionPlayerManager : MonoBehaviour
 {
     public PlayerAttack playerScript;
     public bool isInArena = false;
+    public List<GameObject> doors;
+    public List<GameObject> secondaryDoors;
+    public List<GameObject> spawnManagers;
     RoundManager rm;
 
     void Start()
     {
+        doors = GameObject.FindGameObjectsWithTag("Door")
+                      .OrderBy(obj => obj.name)
+                      .ToList();
+
+        for (int i = 0; i < doors.Count; i++)
+        {
+            Debug.Log(doors[i].name);
+            if (doors[i].name == "collider")
+            {
+                doors.RemoveAt(i);
+                i--;
+            }
+        }
+        secondaryDoors = GameObject.FindGameObjectsWithTag("secondaryDoor").ToList();
+        spawnManagers = GameObject.FindGameObjectsWithTag("spawnManager")
+                        .OrderBy(obj => obj.name)
+                      .ToList();
         playerScript = FindObjectOfType<PlayerAttack>();
         rm = FindObjectOfType<RoundManager>();
     }
@@ -27,21 +50,38 @@ public class PositionPlayerManager : MonoBehaviour
         if (collision.CompareTag("Door"))
         {
             isInArena = true;
+            searchCollidedDoor(collision);
             Destroy(collision.gameObject);
             SetAllDoorsState(-5, true);
         }
     }
 
+    void searchCollidedDoor(Collider2D collision)
+    {
+        int i;
+        Debug.Log(doors.Count + " " +  spawnManagers.Count);
+        for (i = 0; i < doors.Count; i++)
+        {
+            if (collision.gameObject.name == "collider"+(i+1)) spawnManagers[i].GetComponent<WaveManager>().disabled = false;
+
+        }
+    }
+
     void SetAllDoorsState(int newOrder, bool collidersActive)
     {
-        GameObject[] doors = GameObject.FindGameObjectsWithTag("Door");
         foreach (GameObject door in doors)
         {
-            SpriteRenderer parentRenderer = door.GetComponentInParent<SpriteRenderer>();
-            if (parentRenderer != null)
+            SpriteRenderer parentRenderer;
+            if (door != null)
             {
-                parentRenderer.sortingOrder = newOrder;
+                parentRenderer = door.GetComponentInParent<SpriteRenderer>();
+
+                if (parentRenderer != null)
+                {
+                    parentRenderer.sortingOrder = newOrder;
+                }
             }
+            
         }
 
         GameObject[] solidHitboxes = GameObject.FindGameObjectsWithTag("SolidHitboxDoor");

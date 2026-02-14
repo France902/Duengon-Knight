@@ -87,6 +87,7 @@ GameObject:
   m_Component:
   - component: {fileID: 274987195001912232}
   - component: {fileID: 4322633237206123228}
+  - component: {fileID: 5150629192961090233}
   m_Layer: 3
   m_Name: HurtBox
   m_TagString: Untagged
@@ -144,6 +145,18 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.5, y: 1}
   m_Direction: 0
+--- !u!114 &5150629192961090233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4898913545870706080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43bfcd5b96ed2144ab9a74ebc350d209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6377495551770545879
 GameObject:
   m_ObjectHideFlags: 0
@@ -154,6 +167,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9183328727348112087}
   - component: {fileID: 3078366064904856150}
+  - component: {fileID: 890737265568509831}
   m_Layer: 3
   m_Name: colliderExtender
   m_TagString: Untagged
@@ -221,6 +235,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &890737265568509831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6377495551770545879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e6c48283f99aa439fe2bf88086e8f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7424830540609518112
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,4 +422,4 @@ MonoBehaviour:
   stopTolerance: 0.05
   type: goblin
   playerScript: {fileID: 0}
-  colliderExtender: {fileID: 0}
+  colliderExtender: {fileID: 3078366064904856150}

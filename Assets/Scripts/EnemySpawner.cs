@@ -14,9 +14,14 @@ public class WaveManager : MonoBehaviour
     public RoundManager roundManager;
     public PositionPlayerManager playerPos;
 
+    public GameObject altSpawn;
+    public GameObject altRange;
+    public GameObject[] expanders;
+
     private GameObject spawnParent;
     private bool isSpawning = true;
     private bool waveInProgress = false;
+    public bool disabled = false;
     private int currentEnemyIndex = 0;
 
     void Start()
@@ -33,7 +38,7 @@ public class WaveManager : MonoBehaviour
 
     void Update()
     {
-        if (isSpawning && !waveInProgress && !roundManager.isCutscene)
+        if (isSpawning && !waveInProgress && !roundManager.isCutscene && !disabled)
         {
             if (spawnParent != null && spawnParent.transform.childCount == 0)
             {
@@ -104,8 +109,6 @@ public class WaveManager : MonoBehaviour
 
         if (leftSide)
         {
-            GameObject altSpawn = GameObject.FindWithTag("Alternative spawn");
-            GameObject altRange = GameObject.FindWithTag("Alternative spawnRange");
 
             if (altSpawn != null && altRange != null)
             {
@@ -122,7 +125,6 @@ public class WaveManager : MonoBehaviour
         minZ = transform.position.z;
         maxZ = transform.position.z;
 
-        GameObject[] expanders = GameObject.FindGameObjectsWithTag("Expander spawnRange");
         foreach (GameObject exp in expanders)
         {
             if (exp.transform.position.x < minX) minX = exp.transform.position.x;

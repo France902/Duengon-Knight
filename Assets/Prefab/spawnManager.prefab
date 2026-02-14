@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5847079791462202251}
   m_Layer: 0
   m_Name: spawnManager
-  m_TagString: Untagged
+  m_TagString: spawnManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,8 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemiesToSpawn:
-  - {fileID: 8048524908834707888, guid: 6dab528ea53eeba489429a176c686bf4, type: 3}
+  - {fileID: 8088972791105966286, guid: 3419237b5e0a18a4d921996a57f9fcb4, type: 3}
   - {fileID: 0}
-  - {fileID: 8048524908834707888, guid: 6dab528ea53eeba489429a176c686bf4, type: 3}
+  - {fileID: 0}
+  spawnOnLeft: 000101
   delayBetweenEnemies: 1.3
   roundManager: {fileID: 0}
+  playerPos: {fileID: 0}
+  disabled: 0

@@ -41,6 +41,7 @@ public class PositionPlayerManager : MonoBehaviour
     {
         if (!isInArena && !rm.isCutscene)
         {
+            rm.roundFought = 0;
             SetAllDoorsState(1, false);
         }
     }
@@ -80,8 +81,21 @@ public class PositionPlayerManager : MonoBehaviour
                 {
                     parentRenderer.sortingOrder = newOrder;
                 }
+            } 
+        }
+
+        foreach (GameObject door in secondaryDoors)
+        {
+            SpriteRenderer parentRenderer;
+            if (door != null)
+            {
+                parentRenderer = door.GetComponentInParent<SpriteRenderer>();
+
+                if (parentRenderer != null)
+                {
+                    parentRenderer.sortingOrder = newOrder;
+                }
             }
-            
         }
 
         GameObject[] solidHitboxes = GameObject.FindGameObjectsWithTag("SolidHitboxDoor");

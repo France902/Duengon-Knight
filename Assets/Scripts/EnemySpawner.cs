@@ -21,6 +21,7 @@ public class WaveManager : MonoBehaviour
     private GameObject spawnParent;
     private bool isSpawning = true;
     private bool waveInProgress = false;
+    private bool stillEnemies = true;
     public bool disabled = false;
     private int currentEnemyIndex = 0;
 
@@ -42,14 +43,14 @@ public class WaveManager : MonoBehaviour
         {
             if (spawnParent != null && spawnParent.transform.childCount == 0)
             {
-                if (currentEnemyIndex < enemiesToSpawn.Length && playerPos.isInArena)
+                if (currentEnemyIndex < enemiesToSpawn.Length && playerPos.isInArena && stillEnemies)
                 {
                     roundManager.setIsCutscene(true);
                     StartCoroutine(WaitAndThenSpawn());
                 }
                 else
                 {
-                    if (currentEnemyIndex >= enemiesToSpawn.Length)
+                    if ((currentEnemyIndex >= enemiesToSpawn.Length) || !stillEnemies)
                     {
                         playerPos.isInArena = false;
                         isSpawning = false;
@@ -73,6 +74,11 @@ public class WaveManager : MonoBehaviour
 
             if (currentPrefab == null)
             {
+                stillEnemies = false;
+                for(int i = currentEnemyIndex + 1; i < enemiesToSpawn.Length; i++)
+                {
+                    if (enemiesToSpawn[i] != null) stillEnemies = true;
+                }
                 currentEnemyIndex++;
                 break;
             }

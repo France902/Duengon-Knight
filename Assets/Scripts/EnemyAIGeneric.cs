@@ -137,7 +137,7 @@ public class EnemyAIGeneric : EnemySlime
                 return;
             }
         }
-        else if (verticalDiff < -0.1f && !isAttacking && (distToTarget <= stopTolerance || isRepositioning) && playerScript.getIsGrounded())
+        else if (verticalDiff < -0.1f && !isAttacking && (distToTarget <= stopTolerance || isRepositioning) && playerScript.getIsGrounded() && type != "wizard")
         {
             Debug.Log(wanderDirection);
             isRepositioning = true;
@@ -188,12 +188,15 @@ public class EnemyAIGeneric : EnemySlime
             wanderDirection = 0f;   
         }
 
-        if (distToTarget <= stopTolerance && verticalDiff <= 0.1f && verticalDiff >= -0.1f)
+        Debug.Log(verticalDiff <= 0.1f || type == "wizard");
+
+        if (distToTarget <= stopTolerance && (verticalDiff <= 0.1f || type == "wizard") && (verticalDiff >= -0.1f || type == "wizard"))
         {
             Debug.Log("Entrato nell'intouch");
             if (isAttacking) return;
             Debug.Log("confermato");
             anim.Play("idle");
+            anim.SetBool("move", false);
             moveable = false;
             inTouchPlayer = true;
             return;

@@ -15,8 +15,17 @@ public class HUDManager : MonoBehaviour
     public TextMeshProUGUI textHeavy;
     public Image backgroundHeavy;
 
+    public Image backgroundBossBase;
+
     public float timerBase = 0f;
     public float timerHeavy = 0f;
+
+    void Start()
+    {
+        backgroundBossBase.enabled = false;
+    }
+
+
 
     void Update()
     {
@@ -59,5 +68,10 @@ public class HUDManager : MonoBehaviour
             UItext.alpha = 0.5f;
             bgImage.color = Color.white;
         }
+    }
+
+    public void activateBackgroundBoss()
+    {
+        backgroundBossBase.enabled = false;
     }
 }

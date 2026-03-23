@@ -70,8 +70,8 @@ public class HUDManager : MonoBehaviour
         }
     }
 
-    public void activateBackgroundBoss()
+    public void activeBackgroundBoss(bool display)
     {
-        backgroundBossBase.enabled = false;
+        backgroundBossBase.enabled = display;
     }
 }

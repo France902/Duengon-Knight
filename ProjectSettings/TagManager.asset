@@ -16,6 +16,7 @@ TagManager:
   - SolidHitboxDoor
   - spawnManager
   - secondaryDoor
+  - bossDoor
   layers:
   - Default
   - TransparentFX

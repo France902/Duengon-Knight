@@ -216,6 +216,7 @@ MonoBehaviour:
   backgroundBase: {fileID: 121069817731013826}
   textHeavy: {fileID: 4353984110931014457}
   backgroundHeavy: {fileID: 8083860008464996565}
+  backgroundBossBase: {fileID: 7577255665063122399}
   timerBase: 0
   timerHeavy: 0
 --- !u!1 &3586987882659711882
@@ -515,11 +516,11 @@ GameObject:
   - component: {fileID: 8517270241129220130}
   - component: {fileID: 7577255665063122399}
   m_Layer: 5
-  m_Name: HealthBar_Background (1)
+  m_Name: Boss_HealthBar_Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &5925105024312659994
 RectTransform:

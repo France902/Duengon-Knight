@@ -45,7 +45,8 @@ public class WaveManager : MonoBehaviour
             {
                 if (currentEnemyIndex < enemiesToSpawn.Length && playerPos.isInArena && stillEnemies)
                 {
-                    roundManager.setIsCutscene(true);
+                    if(!playerPos.isBossFight) roundManager.setIsCutscene(true, false);
+                    else roundManager.setIsCutscene(true, true);
                     StartCoroutine(WaitAndThenSpawn());
                 }
                 else

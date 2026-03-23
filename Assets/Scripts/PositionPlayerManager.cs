@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,12 @@ public class PositionPlayerManager : MonoBehaviour
 {
     public PlayerAttack playerScript;
     public bool isInArena = false;
+    public bool isBossFight;
     public List<GameObject> doors;
+    public List<GameObject> bossDoors;
     public List<GameObject> secondaryDoors;
     public List<GameObject> spawnManagers;
-    RoundManager rm;
+    public RoundManager rm;
 
     void Start()
     {
@@ -22,13 +25,26 @@ public class PositionPlayerManager : MonoBehaviour
 
         for (int i = 0; i < doors.Count; i++)
         {
-            Debug.Log(doors[i].name);
             if (doors[i].name == "collider")
             {
                 doors.RemoveAt(i);
                 i--;
             }
         }
+
+        bossDoors = GameObject.FindGameObjectsWithTag("bossDoor")
+                      .OrderBy(obj => obj.name)
+                      .ToList();
+
+        for (int i = 0; i < bossDoors.Count; i++)
+        {
+            if (bossDoors[i].name == "collider")
+            {
+                bossDoors.RemoveAt(i);
+                i--;
+            }
+        }
+
         secondaryDoors = GameObject.FindGameObjectsWithTag("secondaryDoor").ToList();
         spawnManagers = GameObject.FindGameObjectsWithTag("spawnManager")
                         .OrderBy(obj => obj.name)
@@ -48,19 +64,22 @@ public class PositionPlayerManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Door"))
+        Debug.Log(collision.tag);
+        if (collision.CompareTag("Door") || collision.CompareTag("bossDoor"))
         {
             isInArena = true;
             searchCollidedDoor(collision);
             Destroy(collision.gameObject);
             SetAllDoorsState(-5, true);
+
+            if (collision.CompareTag("bossDoor")) isBossFight = true;
+            else isBossFight = false;
         }
     }
 
     void searchCollidedDoor(Collider2D collision)
     {
         int i;
-        Debug.Log(doors.Count + " " +  spawnManagers.Count);
         for (i = 0; i < doors.Count; i++)
         {
             if (collision.gameObject.name == "collider"+(i+1)) spawnManagers[i].GetComponent<WaveManager>().disabled = false;
@@ -85,6 +104,20 @@ public class PositionPlayerManager : MonoBehaviour
         }
 
         foreach (GameObject door in secondaryDoors)
+        {
+            SpriteRenderer parentRenderer;
+            if (door != null)
+            {
+                parentRenderer = door.GetComponentInParent<SpriteRenderer>();
+
+                if (parentRenderer != null)
+                {
+                    parentRenderer.sortingOrder = newOrder;
+                }
+            }
+        }
+
+        foreach (GameObject door in bossDoors)
         {
             SpriteRenderer parentRenderer;
             if (door != null)

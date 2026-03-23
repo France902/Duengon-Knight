@@ -12,16 +12,23 @@ public class RoundManager : MonoBehaviour
     public TextMeshProUGUI roundText; // Trascina qui l'oggetto testo dall'Inspector
     public float fadeDuration = 1.0f; // Durata della transizione
     public float displayDuration = 2.0f; // Quanto tempo resta visibile
+    public HUDManager HUD;
 
-    public void setIsCutscene(bool isCutscene)
+    public void setIsCutscene(bool isCutscene, bool isBossFight)
     {
         this.isCutscene = isCutscene;
-        if (isCutscene) StartCoroutine(ShowRoundSequence());
+        if (isCutscene && isBossFight) StartCoroutine(ShowRoundSequence(true));
+        else if(isCutscene) StartCoroutine(ShowRoundSequence(false));
     }
 
-    private IEnumerator ShowRoundSequence()
+    private IEnumerator ShowRoundSequence(bool isBossFight)
     {
-        roundText.text = (roundFought + 1) + "° ONDATA";
+        if (!isBossFight) roundText.text = (roundFought + 1) + "° ONDATA";
+        else
+        {
+            roundText.text = "BOSS FIGHT";
+            HUD.activeBackgroundBoss(true);
+        }
         roundFought++;
         yield return StartCoroutine(FadeText(0, 1));
 

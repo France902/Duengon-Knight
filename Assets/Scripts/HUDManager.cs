@@ -16,6 +16,7 @@ public class HUDManager : MonoBehaviour
     public Image backgroundHeavy;
 
     public Image backgroundBossBase;
+    public Image fillBossBar;
 
     public float timerBase = 0f;
     public float timerHeavy = 0f;
@@ -23,6 +24,7 @@ public class HUDManager : MonoBehaviour
     void Start()
     {
         backgroundBossBase.enabled = false;
+        fillBossBar.enabled = false;
     }
 
 
@@ -73,5 +75,6 @@ public class HUDManager : MonoBehaviour
     public void activeBackgroundBoss(bool display)
     {
         backgroundBossBase.enabled = display;
+        fillBossBar.enabled = display;
     }
 }

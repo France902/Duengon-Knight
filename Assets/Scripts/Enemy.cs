@@ -9,13 +9,15 @@ public class EnemySlime : MonoBehaviour
     bool playerInRange;
     protected bool isInHurt;
 
-    public int hp;
+    public float hp;
+    public float MaxHp;
     public int damage;
 
     protected virtual void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        MaxHp = hp;
     }
 
     private void OnTriggerEnter2D(Collider2D other)

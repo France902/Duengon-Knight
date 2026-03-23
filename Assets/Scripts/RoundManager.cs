@@ -13,6 +13,7 @@ public class RoundManager : MonoBehaviour
     public float fadeDuration = 1.0f; // Durata della transizione
     public float displayDuration = 2.0f; // Quanto tempo resta visibile
     public HUDManager HUD;
+    public HealthBarUIBoss healthBarBoss;
 
     public void setIsCutscene(bool isCutscene, bool isBossFight)
     {
@@ -26,6 +27,7 @@ public class RoundManager : MonoBehaviour
         if (!isBossFight) roundText.text = (roundFought + 1) + "° ONDATA";
         else
         {
+            
             roundText.text = "BOSS FIGHT";
             HUD.activeBackgroundBoss(true);
         }
@@ -36,7 +38,13 @@ public class RoundManager : MonoBehaviour
 
         yield return StartCoroutine(FadeText(1, 0));
 
-        isCutscene = false; 
+        isCutscene = false;
+
+        if (isBossFight)
+        {
+            yield return new WaitForSeconds(2);
+            healthBarBoss.setBoss();
+        }
     }
 
     private IEnumerator FadeText(float startAlpha, float endAlpha)

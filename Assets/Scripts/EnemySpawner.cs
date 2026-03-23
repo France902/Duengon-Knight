@@ -18,6 +18,8 @@ public class WaveManager : MonoBehaviour
     public GameObject altRange;
     public GameObject[] expanders;
 
+    
+
     private GameObject spawnParent;
     private bool isSpawning = true;
     private bool waveInProgress = false;
@@ -71,6 +73,7 @@ public class WaveManager : MonoBehaviour
     {
         while (currentEnemyIndex < enemiesToSpawn.Length)
         {
+            
             GameObject currentPrefab = enemiesToSpawn[currentEnemyIndex];
 
             if (currentPrefab == null)

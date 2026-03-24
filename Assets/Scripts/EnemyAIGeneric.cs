@@ -260,27 +260,97 @@ public class EnemyAIGeneric : EnemySlime
 
     public void attack()
     {
+        Debug.Log(type);
         if (inTouchPlayer && !isDead && !isAttacking && !isInHurt && !isBlocking)
         {
+            
+            isAttacking = true;
+            if (type != "wizard")
+            {
+                int sceltaAttacco = UnityEngine.Random.Range(1, 3);
+                if (sceltaAttacco == 1)
+                {
+                    damage = damageAttack[0];
+                    attackDid = "attack1";
+                    anim.SetTrigger("attack");
+                }
+                else
+                {
+                    damage = damageAttack[1];
+                    attackDid = "attack2";
+                    anim.SetTrigger("attack2");
+                }
+            }
+            else
+            {
+                int sceltaAttacco = UnityEngine.Random.Range(1, 4);
+                if (sceltaAttacco == 1)
+                {
+                    damage = damageAttack[0];
+                    attackDid = "attack1";
+                    anim.SetTrigger("attack");
+                }
+                else if (sceltaAttacco == 2)
+                {
+                    damage = damageAttack[1];
+                    attackDid = "attack2";
+                    anim.SetTrigger("attack2");
+                }
+                else
+                {
+                    damage = damageAttack[1];
+                    attackDid = "jumpAttackCasual";
+                    anim.SetTrigger("jump");
+                    jumpBossCasual();
+                }
+            }
+            moveable = false;
+        }
+        else if (type == "wizard")
+        {
+            
             isAttacking = true;
             int sceltaAttacco = UnityEngine.Random.Range(1, 3);
+            Debug.Log(sceltaAttacco);
 
             if (sceltaAttacco == 1)
             {
-                damage = damageAttack[0];
-                attackDid = "attack1";
-                anim.SetTrigger("attack");
+                damage = damageAttack[1];
+                attackDid = "jumpAttackCasual";
+                anim.SetTrigger("jump");
+                jumpBossCasual();
             }
             else
             {
                 damage = damageAttack[1];
-                attackDid = "attack2";
-                anim.SetTrigger("attack2");
+                attackDid = "jumpAttackToPlayer";
+                anim.SetTrigger("jump");
+                jumpBossToPlayer();
             }
 
             moveable = false;
         }
     }
+
+    private void jumpBossCasual()
+    {
+        if (isDead) return;
+
+        float directionX = UnityEngine.Random.value < 0.5f ? -1f : 1f;
+        rb.velocity = new Vector2(directionX * speed * 2f, jumpForce * 2f);
+    }
+
+    private void jumpBossToPlayer()
+    {
+        if (isDead) return;
+
+        float directionX = playerTransform.position.x > transform.position.x ? 1f : -1f;
+        float jumpX = directionX * speed * 3f;
+
+        rb.velocity = new Vector2(jumpX, jumpForce * 2.5f);
+    }
+
+
 
     public IEnumerator finishAttack()
     {

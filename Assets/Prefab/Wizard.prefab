@@ -124,7 +124,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f0a40f0553acbc4e95f77c08cdcb310, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 5
+  hp: 67
+  MaxHp: 0
   damage: 2
 --- !u!114 &8893224685147470886
 MonoBehaviour:
@@ -138,7 +139,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33b935636285d3d49b9f7cf2fdee17c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 5
+  hp: 67
+  MaxHp: 0
   damage: 2
   speed: 0.2
   damageAttack: 0100000001000000

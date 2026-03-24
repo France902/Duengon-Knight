@@ -258,14 +258,16 @@ public class EnemyAIGeneric : EnemySlime
 
     }
 
+    private bool canJumpAttack = true;
+
+
     public void attack()
     {
-        Debug.Log(type);
         if (inTouchPlayer && !isDead && !isAttacking && !isInHurt && !isBlocking)
         {
             
             isAttacking = true;
-            if (type != "wizard")
+            if (type != "wizard" || !canJumpAttack)
             {
                 int sceltaAttacco = UnityEngine.Random.Range(1, 3);
                 if (sceltaAttacco == 1)
@@ -302,16 +304,19 @@ public class EnemyAIGeneric : EnemySlime
                     attackDid = "jumpAttackCasual";
                     anim.SetTrigger("jump");
                     jumpBossCasual();
+                    canJumpAttack = false;
+                    StartCoroutine(ResetJumpAttack());
+                    StartCoroutine(ripristineIsAttacking(1f));
+                    StartCoroutine(ripristineMoveable(1f));
                 }
             }
             moveable = false;
         }
-        else if (type == "wizard")
+        else if (type == "wizard" && !isDead && !isAttacking && !isInHurt && !isBlocking && canJumpAttack)
         {
             
             isAttacking = true;
             int sceltaAttacco = UnityEngine.Random.Range(1, 3);
-            Debug.Log(sceltaAttacco);
 
             if (sceltaAttacco == 1)
             {
@@ -328,8 +333,19 @@ public class EnemyAIGeneric : EnemySlime
                 jumpBossToPlayer();
             }
 
+            canJumpAttack = false;
+            StartCoroutine(ResetJumpAttack());
+            StartCoroutine(ripristineIsAttacking(2f));
+            StartCoroutine(ripristineMoveable(2f));
+
             moveable = false;
         }
+    }
+
+    private IEnumerator ResetJumpAttack()
+    {
+        yield return new WaitForSeconds(7f);
+        canJumpAttack = true;
     }
 
     private void jumpBossCasual()
@@ -337,7 +353,7 @@ public class EnemyAIGeneric : EnemySlime
         if (isDead) return;
 
         float directionX = UnityEngine.Random.value < 0.5f ? -1f : 1f;
-        rb.velocity = new Vector2(directionX * speed * 2f, jumpForce * 2f);
+        rb.velocity = new Vector2(directionX * speed * 3f, jumpForce * 3f);
     }
 
     private void jumpBossToPlayer()
@@ -387,6 +403,14 @@ public class EnemyAIGeneric : EnemySlime
 
         moveable = true;
         
+    }
+
+    private IEnumerator ripristineIsAttacking(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        isAttacking = false;
+
     }
 
     public void setDie()

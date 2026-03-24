@@ -1061,15 +1061,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1313068451366905853, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_FalloffIntensity
-      value: 0
+      value: 0.374
       objectReference: {fileID: 0}
     - target: {fileID: 1313068451366905853, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_OverlapOperation
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1313068451366905853, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
+      propertyPath: m_NormalMapDistance
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1313068451366905853, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_PointLightInnerAngle
-      value: 360
+      value: 221.43
       objectReference: {fileID: 0}
     - target: {fileID: 1313068451366905853, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_PointLightInnerRadius
@@ -1125,7 +1129,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7972091130966063408, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.496
+      value: 1.487
       objectReference: {fileID: 0}
     - target: {fileID: 7972091130966063408, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1623,7 +1627,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1313068451366905853, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_FalloffIntensity
-      value: 1
+      value: 0.318
       objectReference: {fileID: 0}
     - target: {fileID: 1313068451366905853, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_OverlapOperation
@@ -1631,11 +1635,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1313068451366905853, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_NormalMapDistance
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1313068451366905853, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_PointLightInnerAngle
-      value: 360
+      value: 291.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1313068451366905853, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
+      propertyPath: m_PointLightOuterAngle
+      value: 291.12
       objectReference: {fileID: 0}
     - target: {fileID: 1313068451366905853, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_PointLightInnerRadius
@@ -1643,7 +1651,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1313068451366905853, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_PointLightOuterRadius
-      value: 0.50917643
+      value: 1.2280742
       objectReference: {fileID: 0}
     - target: {fileID: 1313068451366905853, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_ShadowIntensityEnabled
@@ -1663,7 +1671,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4127398927840097204, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.99999976
+      value: 0.9999931
       objectReference: {fileID: 0}
     - target: {fileID: 4127398927840097204, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_LocalRotation.x
@@ -1675,7 +1683,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4127398927840097204, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.00071687356
+      value: 0.0037264787
       objectReference: {fileID: 0}
     - target: {fileID: 4127398927840097204, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1843,6 +1851,10 @@ PrefabInstance:
     - target: {fileID: 1313068451366905853, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_OverlapOperation
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1313068451366905853, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
+      propertyPath: m_NormalMapDistance
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1313068451366905853, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_PointLightInnerAngle
@@ -4134,7 +4146,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1313068451366905853, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_NormalMapDistance
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1313068451366905853, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_LightVolumeIntensity
@@ -4835,11 +4847,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1313068451366905853, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_FalloffIntensity
-      value: 0
+      value: 0.135
       objectReference: {fileID: 0}
     - target: {fileID: 1313068451366905853, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_OverlapOperation
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1313068451366905853, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
+      propertyPath: m_NormalMapDistance
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1313068451366905853, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_PointLightInnerAngle
@@ -4855,7 +4871,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1313068451366905853, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_PointLightOuterRadius
-      value: 1.0558178
+      value: 1.3194671
       objectReference: {fileID: 0}
     - target: {fileID: 1313068451366905853, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_ShadowIntensityEnabled
@@ -4871,7 +4887,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4127398927840097204, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.99988014
+      value: 0.99999917
       objectReference: {fileID: 0}
     - target: {fileID: 4127398927840097204, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_LocalRotation.x
@@ -4883,7 +4899,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4127398927840097204, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.015483503
+      value: 0.0013253441
       objectReference: {fileID: 0}
     - target: {fileID: 4127398927840097204, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -4903,7 +4919,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7972091130966063408, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.521
+      value: 1.494
       objectReference: {fileID: 0}
     - target: {fileID: 7972091130966063408, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6827,7 +6843,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1313068451366905853, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_FalloffIntensity
-      value: 0
+      value: 0.228
       objectReference: {fileID: 0}
     - target: {fileID: 1313068451366905853, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_NormalMapQuality
@@ -6839,7 +6855,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1313068451366905853, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_NormalMapDistance
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1313068451366905853, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_LightVolumeIntensity
@@ -6847,7 +6863,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1313068451366905853, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_PointLightInnerAngle
-      value: 360
+      value: 309.86
       objectReference: {fileID: 0}
     - target: {fileID: 1313068451366905853, guid: a8793bd47822ee74b9835c246aedb59d, type: 3}
       propertyPath: m_PointLightOuterAngle

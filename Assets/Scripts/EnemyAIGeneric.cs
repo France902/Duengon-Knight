@@ -266,8 +266,8 @@ public class EnemyAIGeneric : EnemySlime
                     jumpBossCasual();
                     canJumpAttack = false;
                     StartCoroutine(ResetJumpAttack());
-                    StartCoroutine(ripristineIsAttacking(1f));
-                    StartCoroutine(ripristineMoveable(1f));
+                    StartCoroutine(ripristineIsAttacking(0.5f));
+                    StartCoroutine(ripristineMoveable(0.5f));
                 }
             }
             moveable = false;
@@ -294,8 +294,8 @@ public class EnemyAIGeneric : EnemySlime
 
             canJumpAttack = false;
             StartCoroutine(ResetJumpAttack());
-            StartCoroutine(ripristineIsAttacking(2f));
-            StartCoroutine(ripristineMoveable(2f));
+            StartCoroutine(ripristineIsAttacking(0.5f));
+            StartCoroutine(ripristineMoveable(0.5f));
             moveable = false;
         }
     }

@@ -253,8 +253,8 @@ public class PlayerAttack : MonoBehaviour
             {
                 enemy = other.GetComponentInParent<EnemyAIGeneric>();
             }
-
-            if (enemy != null)
+            Debug.Log(enemy.getDie());
+            if (enemy != null && !enemy.getDie())
             {
                 takeHit(enemy, other);
             }

@@ -62,6 +62,11 @@ public class EnemySlime : MonoBehaviour
             isInHurt = false;
     }
 
+    public bool getDie()
+    {
+        return isDead;
+    }
+
     public void DestroySelf()
     {
         Destroy(gameObject);

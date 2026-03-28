@@ -48,8 +48,9 @@ public class RoundManager : MonoBehaviour
                 playerRb.velocity = Vector2.zero;
                 playerRb.constraints = RigidbodyConstraints2D.FreezeAll;
             }
+
             PlayerAttack playerAttack = player.GetComponent<PlayerAttack>();
-            if (playerAttack != null) playerAttack.enabled = false;
+            if (playerAttack != null) playerAttack.isVictory = true;
         }
 
         roundText.gameObject.SetActive(true);

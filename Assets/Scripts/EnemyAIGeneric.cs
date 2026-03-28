@@ -30,7 +30,6 @@ public class EnemyAIGeneric : EnemySlime
     private bool combo = false;
     private string attackDid = "";
     private float wanderDirection = 0;
-    private bool victoryNotified = false;
 
     private enum State { Idle, Chase }
     private State currentState = State.Idle;
@@ -54,19 +53,19 @@ public class EnemyAIGeneric : EnemySlime
         playerScript = GameObject.FindObjectOfType<PlayerAttack>();
     }
 
+    protected override void OnDeath()
+    {
+        Debug.Log("[BOSS] OnDeath chiamato su EnemyAIGeneric, type='" + type + "', roundManager=" + (roundManager == null ? "NULL" : "OK"));
+        if (type == "Wizard" && roundManager != null)
+        {
+            roundManager.OnBossDefeated();
+        }
+    }
+
     void Update()
     {
         HurtBoxLogic = GetComponentInChildren<HurtBoxLogic>();
         colliderExtenderLogic = GetComponentInChildren<MovementColliderLogic>();
-
-        // Controlla morte boss — chiamata diretta senza coroutine per evitare
-        // che venga annullata quando il GameObject viene distrutto
-        if (isDead && type == "wizard" && !victoryNotified)
-        {
-            victoryNotified = true;
-            Debug.Log("[BOSS] isDead=true, type=" + type + ", roundManager=" + (roundManager == null ? "NULL" : "OK"));
-            if (roundManager != null) roundManager.OnBossDefeated();
-        }
 
         if (isDead) return;
         if (roundManager.isCutscene) return;
@@ -138,7 +137,6 @@ public class EnemyAIGeneric : EnemySlime
         }
         else if (verticalDiff < -0.1f && !isAttacking && (distToTarget <= stopTolerance || isRepositioning) && playerScript.getIsGrounded() && type != "wizard")
         {
-            Debug.Log(wanderDirection);
             isRepositioning = true;
             Vector2 footCheckSize = new Vector2(0.4f, 0.12f);
             RaycastHit2D groundCheck = Physics2D.BoxCast(

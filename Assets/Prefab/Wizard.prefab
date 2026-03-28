@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3041158482545275892}
   - component: {fileID: 8893224685147470886}
   - component: {fileID: 1235001092769350256}
+  - component: {fileID: -1826013254051372317}
   m_Layer: 3
   m_Name: Wizard
   m_TagString: Enemy
@@ -125,7 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 67
-  MaxHp: 0
+  MaxHp: 67
   damage: 2
 --- !u!114 &8893224685147470886
 MonoBehaviour:
@@ -140,7 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 67
-  MaxHp: 0
+  MaxHp: 67
   damage: 2
   speed: 0.2
   damageAttack: 0100000001000000
@@ -148,7 +149,7 @@ MonoBehaviour:
   jumpForce: 1
   stopOffset: 0.1
   stopTolerance: 0.05
-  type: wizard
+  type: Mago
   playerScript: {fileID: 0}
   colliderExtender: {fileID: 3663913329725884627}
 --- !u!50 &1235001092769350256
@@ -178,6 +179,36 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &-1826013254051372317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4841481974577740816}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_ComponentVersion: 1
+  m_HasRenderer: 0
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 00000000
+  m_ShapePath:
+  - {x: -1.25, y: -1.25, z: 0}
+  - {x: -1.25, y: 1.25, z: 0}
+  - {x: 1.25, y: 1.25, z: 0}
+  - {x: 1.25, y: -1.25, z: 0}
+  m_ShapePathHash: 0
+  m_Mesh: {fileID: 0}
+  m_InstanceId: -98890
+  m_LocalBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 1.25, y: 1.25, z: 0}
 --- !u!1 &8381633146860575312
 GameObject:
   m_ObjectHideFlags: 0

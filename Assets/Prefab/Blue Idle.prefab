@@ -91,6 +91,7 @@ GameObject:
   - component: {fileID: 5229904775625574338}
   - component: {fileID: 2364328898390662757}
   - component: {fileID: 2863997685717574545}
+  - component: {fileID: 2178556816944995044}
   m_Layer: 3
   m_Name: Blue Idle
   m_TagString: enemySlime
@@ -251,6 +252,36 @@ MonoBehaviour:
   stopOffset: 0
   stopTolerance: 0.01
   playerScript: {fileID: 0}
+--- !u!114 &2178556816944995044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8048524908834707888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_ComponentVersion: 1
+  m_HasRenderer: 0
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 00000000
+  m_ShapePath:
+  - {x: -1.5, y: -0.5, z: 0}
+  - {x: -1.5, y: 0.5, z: 0}
+  - {x: 1.5, y: 0.5, z: 0}
+  - {x: 1.5, y: -0.5, z: 0}
+  m_ShapePathHash: 0
+  m_Mesh: {fileID: 0}
+  m_InstanceId: -95506
+  m_LocalBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 1.5, y: 0.5, z: 0}
 --- !u!1 &8907558753598102476
 GameObject:
   m_ObjectHideFlags: 0

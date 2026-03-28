@@ -23,8 +23,8 @@ public class PlayerAttack : MonoBehaviour
     bool isGrounded = true;
 
     public bool alreadyHurt = false;
-
-    public bool isDead  = false;
+    public bool isDead = false;
+    public bool isVictory = false;
 
     float moveInput;
 
@@ -51,6 +51,12 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
+        if (isVictory)
+        {
+            anim.SetBool("run", false);
+            return;
+        }
+
         if (roundManager.isCutscene)
         {
             anim.SetBool("run", false);
@@ -114,9 +120,7 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-
     public Transform attackPoint;
-
     public float attackAngle = 180f; 
 
     public void DealDamage()
@@ -125,10 +129,9 @@ public class PlayerAttack : MonoBehaviour
 
         foreach (var hit in hits)
         {
-            if(hit.name != "Collider" && hit.name != "colliderExtender")
+            if (hit.name != "Collider" && hit.name != "colliderExtender")
             {
                 Vector3 directionToEnemy = (hit.transform.position - transform.position).normalized;
-
                 float angle = Vector3.Angle(transform.right, directionToEnemy);
 
                 if (!sr.flipX)
@@ -136,7 +139,6 @@ public class PlayerAttack : MonoBehaviour
                     if (angle < attackAngle / 2f)
                     {
                         var genericEnemy = hit.GetComponentInParent<EnemyAIGeneric>();
-
                         int sceltaBlocco = UnityEngine.Random.Range(1, 3);
 
                         if (genericEnemy != null && genericEnemy.type == "skeleton" && !genericEnemy.getIsAttacking() && sceltaBlocco == 1)
@@ -145,8 +147,10 @@ public class PlayerAttack : MonoBehaviour
                         }
                         else
                         {
-                            if (genericEnemy == null || genericEnemy.type != "skeleton" && genericEnemy.type != "goblin") hit.GetComponentInParent<EnemySlime>()?.TakeDamage(damage);
-                            else genericEnemy.TakeDamage(damage);
+                            if (genericEnemy == null || genericEnemy.type != "skeleton" && genericEnemy.type != "goblin")
+                                hit.GetComponentInParent<EnemySlime>()?.TakeDamage(damage);
+                            else
+                                genericEnemy.TakeDamage(damage);
                         }
                     }
                 }
@@ -155,7 +159,6 @@ public class PlayerAttack : MonoBehaviour
                     if (angle > attackAngle / 2f)
                     {
                         var genericEnemy = hit.GetComponentInParent<EnemyAIGeneric>();
-
                         int sceltaBlocco = UnityEngine.Random.Range(1, 3);
 
                         if (genericEnemy != null && genericEnemy.type == "skeleton" && sceltaBlocco == 1)
@@ -164,23 +167,21 @@ public class PlayerAttack : MonoBehaviour
                         }
                         else
                         {
-                            if(genericEnemy == null || (genericEnemy.type != "skeleton" && genericEnemy.type != "goblin")) hit.GetComponentInParent<EnemySlime>()?.TakeDamage(damage);
-                            else genericEnemy.TakeDamage(damage);
+                            if (genericEnemy == null || (genericEnemy.type != "skeleton" && genericEnemy.type != "goblin"))
+                                hit.GetComponentInParent<EnemySlime>()?.TakeDamage(damage);
+                            else
+                                genericEnemy.TakeDamage(damage);
                         }
                     }
                 }
-
             }
-
         }
     }
 
     public void ResetWeapon()
     {
         if (weaponLogic != null)
-        {
             weaponLogic.SetEnemyExclusion(false);
-        }
     }
 
     public void EndAction()
@@ -190,13 +191,11 @@ public class PlayerAttack : MonoBehaviour
 
     public void confirmHeavy()
     {
-
         typeAttack = "heavy_confirmed";
     }
 
     public IEnumerator ExecuteAttackShutdown()
     {
-
         switch (typeAttack)
         {
             case "base":
@@ -210,22 +209,16 @@ public class PlayerAttack : MonoBehaviour
         isAttacking = false;
 
         if (weaponLogic == null)
-        {
             weaponLogic = GetComponentInChildren<WeaponLogic>(true);
-        }
 
         if (weaponLogic != null)
-        {
             weaponLogic.SetEnemyExclusion(true);
-        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
-        {
             isGrounded = true;
-        }
     }
 
     public LayerMask enemyBodyLayer;
@@ -234,41 +227,30 @@ public class PlayerAttack : MonoBehaviour
     {
         int enemyLayerIndex = LayerMask.NameToLayer("enemyLayer");
 
-        if (other.gameObject.layer != enemyLayerIndex)
-            return;
-
-        if (((1 << other.gameObject.layer) & enemyBodyLayer) == 0)
-            return;
+        if (other.gameObject.layer != enemyLayerIndex) return;
+        if (((1 << other.gameObject.layer) & enemyBodyLayer) == 0) return;
 
         if (!alreadyHurt && !isAttacking)
         {
-
             EnemySlime enemy;
 
             if (other.CompareTag("enemySlime"))
-            {
                 enemy = other.GetComponentInParent<EnemySlimeAI>();
-            }
             else
-            {
                 enemy = other.GetComponentInParent<EnemyAIGeneric>();
-            }
 
-            if (enemy != null && !enemy.getDie())
-            {
+            if (enemy != null)
                 takeHit(enemy, other);
-            }
         }
     }
 
-
     public void takeHit(EnemySlime enemy, Collider2D other)
     {
-        
-        if(!immunity)
+        if (!immunity)
         {
             if (health > 0) health -= enemy.damage;
-            if(health <= 0) {
+            if (health <= 0)
+            {
                 if (isDead) return;
                 anim.Play("die", 0, 0f);
                 isDead = true;
@@ -279,21 +261,16 @@ public class PlayerAttack : MonoBehaviour
             immunity = true;
 
             bool enemyFlip = enemy.getFlipX();
-            if(enemy.CompareTag("enemySlime")) moveInput = enemyFlip ? +1 : -1;
+            if (enemy.CompareTag("enemySlime")) moveInput = enemyFlip ? +1 : -1;
             else moveInput = enemyFlip ? -1 : +1;
 
             float distance = Vector2.Distance(transform.position, enemy.transform.position);
-
             float knockbackForce = 0.01f / (distance + 0.005f);
-
             knockbackForce = Mathf.Clamp(knockbackForce, 0.1f, 0.5f);
 
             anim.SetBool("takeHit", true);
-
-
             transform.Translate(Vector2.right * moveInput * knockbackForce);
         }
-        
     }
 
     public void endHurt()
@@ -302,10 +279,7 @@ public class PlayerAttack : MonoBehaviour
         alreadyHurt = false;
     }
 
-    public bool getAlreadyHurt()
-    {
-        return alreadyHurt;
-    }
+    public bool getAlreadyHurt() => alreadyHurt;
 
     public void StartImmunityCooldown()
     {
@@ -316,36 +290,25 @@ public class PlayerAttack : MonoBehaviour
     {
         immunity = false;
     }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
-
     }
 
     public void Die()
     {
-        
         Destroy(gameObject);
         anim.SetBool("die", false);
-        
     }
 
-    public string getTypeAttack()
-    {
-        return typeAttack;
-    }
+    public string getTypeAttack() => typeAttack;
 
-    public bool getIsGrounded()
-    {
-               return isGrounded;
-    }
+    public bool getIsGrounded() => isGrounded;
 
     internal void takeHit(EnemyAIGeneric enemyAIGeneric)
     {
         throw new NotImplementedException();
     }
 }
-
-
-

@@ -44,12 +44,16 @@ public class EnemySlime : MonoBehaviour
             hp = 0;
             isDead = true;
             anim.SetBool("die", true);
+            Debug.Log("[SLIME] Chiamo OnDeath, tipo oggetto: " + this.GetType().Name + ", GetType completo: " + this.GetType().FullName);
+            OnDeath();
         }
-        else
+         else
         {
             anim.SetTrigger("hurt");
         }
     }
+
+    protected virtual void OnDeath() { }
 
     public bool getFlipX()
     {
@@ -71,5 +75,4 @@ public class EnemySlime : MonoBehaviour
     {
         Destroy(gameObject);
     }
-
 }

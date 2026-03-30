@@ -53,10 +53,14 @@ public class EnemyAIGeneric : EnemySlime
         playerScript = GameObject.FindObjectOfType<PlayerAttack>();
     }
 
+    private bool deathCalled = false;
+
     protected override void OnDeath()
     {
-        Debug.Log("[BOSS] OnDeath chiamato su EnemyAIGeneric, type='" + type + "', roundManager=" + (roundManager == null ? "NULL" : "OK"));
-        if (type == "Wizard" && roundManager != null)
+        if (deathCalled) return; // ← blocca chiamate multiple
+        deathCalled = true;
+    
+        if (type == "wizard" && roundManager != null)
         {
             roundManager.OnBossDefeated();
         }

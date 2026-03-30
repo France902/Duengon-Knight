@@ -51,8 +51,10 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
+        Debug.Log("isVictory = " + isVictory);
         if (isVictory)
         {
+            rb.velocity = Vector2.zero;
             anim.SetBool("run", false);
             return;
         }

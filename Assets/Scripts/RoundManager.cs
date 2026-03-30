@@ -26,7 +26,6 @@ public class RoundManager : MonoBehaviour
 
     public void OnBossDefeated()
     {
-        Debug.Log("[ROUND] OnBossDefeated chiamato, victoryTriggered=" + victoryTriggered + ", roundText=" + (roundText == null ? "NULL" : "OK"));
         if (victoryTriggered) return;
         victoryTriggered = true;
         StopAllCoroutines();
@@ -36,21 +35,22 @@ public class RoundManager : MonoBehaviour
     private IEnumerator ShowVictorySequence()
     {
         Debug.Log("[ROUND] ShowVictorySequence partita");
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         Debug.Log("[ROUND] Dopo il delay, mostro VITTORIA");
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
+        Debug.Log("[VICTORY] Player trovato: " + (player == null ? "NULL" : player.name));
+
         if (player != null)
         {
-            Rigidbody2D playerRb = player.GetComponent<Rigidbody2D>();
-            if (playerRb != null)
-            {
-                playerRb.velocity = Vector2.zero;
-                playerRb.constraints = RigidbodyConstraints2D.FreezeAll;
-            }
-
             PlayerAttack playerAttack = player.GetComponent<PlayerAttack>();
-            if (playerAttack != null) playerAttack.isVictory = true;
+            Debug.Log("[VICTORY] PlayerAttack trovato: " + (playerAttack == null ? "NULL" : "OK"));
+
+            if (playerAttack != null) 
+            {
+                playerAttack.isVictory = true;
+                Debug.Log("[VICTORY] isVictory settato a: " + playerAttack.isVictory);
+            }
         }
 
         roundText.gameObject.SetActive(true);
@@ -58,7 +58,7 @@ public class RoundManager : MonoBehaviour
         roundText.color = new Color(roundText.color.r, roundText.color.g, roundText.color.b, 0f);
 
         yield return StartCoroutine(FadeText(0f, 1f));
-        yield return new WaitForSeconds(displayDuration);
+        yield return new WaitForSeconds(20f);
         yield return StartCoroutine(FadeText(1f, 0f));
 
         roundText.gameObject.SetActive(false);

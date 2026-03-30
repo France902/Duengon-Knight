@@ -11,12 +11,11 @@ GameObject:
   - component: {fileID: 5056409964173344217}
   - component: {fileID: 3070171955831775782}
   - component: {fileID: 2202988821872063917}
-  - component: {fileID: 3041158482545275892}
   - component: {fileID: 8893224685147470886}
   - component: {fileID: 1235001092769350256}
   - component: {fileID: -1826013254051372317}
   m_Layer: 3
-  m_Name: Wizard
+  m_Name: wizard
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -113,21 +112,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3041158482545275892
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4841481974577740816}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f0a40f0553acbc4e95f77c08cdcb310, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hp: 67
-  MaxHp: 67
-  damage: 2
 --- !u!114 &8893224685147470886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,7 +133,7 @@ MonoBehaviour:
   jumpForce: 1
   stopOffset: 0.1
   stopTolerance: 0.05
-  type: Mago
+  type: wizard
   playerScript: {fileID: 0}
   colliderExtender: {fileID: 3663913329725884627}
 --- !u!50 &1235001092769350256

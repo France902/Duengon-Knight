@@ -34,7 +34,7 @@ public class EnemySlime : MonoBehaviour
 
     public void TakeDamage(int dmg)
     {
-        if (isDead || isInHurt) return;
+        if (isDead || isInHurt ) return;
         
         isInHurt = true;
         hp -= dmg;
@@ -53,7 +53,7 @@ public class EnemySlime : MonoBehaviour
         }
     }
 
-    protected virtual void OnDeath() { }
+    protected virtual void OnDeath() {}
 
     public bool getFlipX()
     {

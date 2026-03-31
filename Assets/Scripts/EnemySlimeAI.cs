@@ -30,7 +30,7 @@ public class EnemySlimeAI : EnemySlime
     {
         base.Awake();
 
-        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        PlayerAttack playerObj = GameObject.FindObjectOfType<PlayerAttack>();
 
         if (playerObj != null)
         {

@@ -17,6 +17,15 @@ public class RoundManager : MonoBehaviour
 
     private bool victoryTriggered = false;
 
+    public AudioClip victoryMusic;
+    private AudioSource audioSource;
+
+    private void Start()
+    {
+        //playerAttack = GameObject.FindObjectOfType<PlayerAttack>();
+        audioSource = GetComponent<AudioSource>();
+    }
+
     public void setIsCutscene(bool isCutscene, bool isBossFight)
     {
         this.isCutscene = isCutscene;
@@ -34,12 +43,10 @@ public class RoundManager : MonoBehaviour
 
     private IEnumerator ShowVictorySequence()
     {
-        Debug.Log("[ROUND] ShowVictorySequence partita");
         yield return new WaitForSeconds(1f);
-        Debug.Log("[ROUND] Dopo il delay, mostro VITTORIA");
-
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        Debug.Log("[VICTORY] Player trovato: " + (player == null ? "NULL" : player.name));
+        audioSource.clip = victoryMusic;
+        audioSource.Play();
+        PlayerAttack player = GameObject.FindObjectOfType<PlayerAttack>();
 
         if (player != null)
         {

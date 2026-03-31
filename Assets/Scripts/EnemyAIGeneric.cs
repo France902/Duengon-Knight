@@ -39,7 +39,7 @@ public class EnemyAIGeneric : EnemySlime
         base.Awake();
         rb = GetComponent<Rigidbody2D>();
 
-        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        PlayerAttack playerObj = GameObject.FindObjectOfType<PlayerAttack>();
         if (playerObj != null)
         {
             playerTransform = playerObj.transform;

@@ -64,7 +64,12 @@ public class PlayerAttack : MonoBehaviour
             return;
         }
 
-        if (isDead) return;
+        if (isDead)
+        {
+            anim.SetBool("run", false);
+            rb.velocity = Vector2.zero;
+            return;
+        }
 
         moveInput = Input.GetAxisRaw("Horizontal");
 

@@ -3458,7 +3458,7 @@ PrefabInstance:
     - target: {fileID: 1469119669934228689, guid: 581e5b9c2dcd99748ba97b271b11a2be, type: 3}
       propertyPath: victoryMusic
       value: 
-      objectReference: {fileID: 8300000, guid: ef7bbaa37a35ab042b00b00ddaaad6b1, type: 3}
+      objectReference: {fileID: 8300000, guid: f16312c1fb0eb5142ad588d0454a4d45, type: 3}
     - target: {fileID: 1469119669934228689, guid: 581e5b9c2dcd99748ba97b271b11a2be, type: 3}
       propertyPath: healthBarBoss
       value: 

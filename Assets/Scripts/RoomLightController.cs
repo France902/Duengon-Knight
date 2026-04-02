@@ -10,10 +10,7 @@ public class RoomLightController : MonoBehaviour
     public void Awake()
     {
         foreach (Light2D light in lights)
-        {
-            Debug.Log(light);
             light.enabled = false;
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)

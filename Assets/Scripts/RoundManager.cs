@@ -50,12 +50,10 @@ public class RoundManager : MonoBehaviour
         if (player != null)
         {
             PlayerAttack playerAttack = player.GetComponent<PlayerAttack>();
-            Debug.Log("[VICTORY] PlayerAttack trovato: " + (playerAttack == null ? "NULL" : "OK"));
 
             if (playerAttack != null) 
             {
                 playerAttack.isVictory = true;
-                Debug.Log("[VICTORY] isVictory settato a: " + playerAttack.isVictory);
             }
         }
 

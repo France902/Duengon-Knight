@@ -22,7 +22,6 @@ public class RoundManager : MonoBehaviour
 
     private void Start()
     {
-        //playerAttack = GameObject.FindObjectOfType<PlayerAttack>();
         audioSource = GetComponent<AudioSource>();
     }
 

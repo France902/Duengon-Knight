@@ -136,7 +136,7 @@ public class PositionPlayerManager : MonoBehaviour
             BoxCollider2D box = hitbox.GetComponent<BoxCollider2D>();
             if (box != null)
             {
-                if (!collidersActive && box.enabled) Destroy(box.gameObject);
+                if (!collidersActive && box.enabled) box.enabled = false;
                 else box.enabled = collidersActive;
             }
         }

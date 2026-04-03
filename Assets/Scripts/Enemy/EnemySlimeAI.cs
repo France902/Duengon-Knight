@@ -78,9 +78,10 @@ public class EnemySlimeAI : EnemySlime
        
         float verticalDist = Mathf.Abs(transform.position.y - playerTransform.position.y);
         
-        if (distToTarget <= stopTolerance && verticalDist <= 0.3f)
+        if (distToTarget <= stopTolerance && verticalDist <= 0.1f)
         {
-            inTouchPlayer = true;
+            if(!isDead) inTouchPlayer = true;
+
             return;
         }
         else
@@ -120,7 +121,7 @@ public class EnemySlimeAI : EnemySlime
             }
 
            
-            if (collision.CompareTag("Player"))
+            if (collision.CompareTag("Player") && !isDead)
             {
                 inTouchPlayer = true;
             }
@@ -138,7 +139,7 @@ public class EnemySlimeAI : EnemySlime
             return; 
         }
 
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && !isDead)
         {
             inTouchPlayer = false;
         }

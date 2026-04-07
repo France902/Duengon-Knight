@@ -6,10 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: "Assets/Hero_Knight/Demo/Men\xF9.unity"
+    path: Assets/Hero_Knight/Demo/SceneMenu.unity
     guid: 0d088a6ec66daa345bf6038fd72ec4cb
   - enabled: 1
-    path: Assets/Hero_Knight/Demo/Scene demo.unity
+    path: Assets/Hero_Knight/Demo/SceneMain.unity
     guid: 5045bdde4d7925f43bc0b460d9ac6fc1
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1235001092769350256}
   - component: {fileID: -1826013254051372317}
   m_Layer: 3
-  m_Name: wizard
+  m_Name: Wizard
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -124,11 +124,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33b935636285d3d49b9f7cf2fdee17c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 67
-  MaxHp: 67
+  hp: 30
+  MaxHp: 30
   damage: 2
   speed: 0.2
-  damageAttack: 0100000001000000
+  damageAttack: 0200000001000000
   chaseDistance: 4
   jumpForce: 1
   stopOffset: 0.1

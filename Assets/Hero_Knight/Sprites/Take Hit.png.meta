@@ -156,9 +156,16 @@ TextureImporter:
         width: 180
         height: 180
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
+      outline:
+      - - {x: 32, y: -8}
+        - {x: 21, y: 21}
+        - {x: 4, y: 29}
+        - {x: -19, y: 29}
+        - {x: -19, y: -25}
+        - {x: -17, y: -26}
+        - {x: 32, y: -26}
       physicsShape: []
       tessellationDetail: 0
       bones: []
@@ -177,9 +184,16 @@ TextureImporter:
         width: 180
         height: 180
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
+      outline:
+      - - {x: 32, y: -8}
+        - {x: 21, y: 21}
+        - {x: 4, y: 29}
+        - {x: -19, y: 29}
+        - {x: -19, y: -25}
+        - {x: -17, y: -26}
+        - {x: 32, y: -26}
       physicsShape: []
       tessellationDetail: 0
       bones: []
@@ -198,9 +212,24 @@ TextureImporter:
         width: 180
         height: 180
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
+      outline:
+      - - {x: 28, y: -24}
+        - {x: 28, y: -18}
+        - {x: 16, y: 24}
+        - {x: 12, y: 25}
+        - {x: -14, y: 25}
+        - {x: -22, y: 23}
+        - {x: -24, y: 4}
+        - {x: -24, y: -16}
+        - {x: -22, y: -21}
+        - {x: -19, y: -26}
+        - {x: -13, y: -26}
+        - {x: -10, y: -25}
+        - {x: 1, y: -13}
+        - {x: 18, y: -26}
+        - {x: 27, y: -26}
       physicsShape: []
       tessellationDetail: 0
       bones: []
@@ -219,9 +248,17 @@ TextureImporter:
         width: 180
         height: 180
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
+      outline:
+      - - {x: 20, y: 24}
+        - {x: -9, y: 24}
+        - {x: -26, y: 14}
+        - {x: -26, y: -2}
+        - {x: -20, y: -26}
+        - {x: 30, y: -26}
+        - {x: 30, y: -14}
+        - {x: 24, y: 23}
       physicsShape: []
       tessellationDetail: 0
       bones: []

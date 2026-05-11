@@ -298,11 +298,12 @@ MonoBehaviour:
   hudManager: {fileID: 0}
   roundManager: {fileID: 0}
   isAttacking: 0
+  alreadyHurt: 0
+  isDead: 0
+  isVictory: 0
   damage: 1
   health: 500
   maxHealth: 5
-  alreadyHurt: 0
-  isDead: 0
   speed: 0.6
   jumpForce: 2
   attackRange: 0.15
@@ -378,8 +379,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ShadowGroup: 0
   m_ComponentVersion: 1
-  m_HasRenderer: 0
-  m_UseRendererSilhouette: 1
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 0
   m_CastsShadows: 1
   m_SelfShadows: 0
   m_ApplyToSortingLayers: 00000000
@@ -390,7 +391,7 @@ MonoBehaviour:
   - {x: 0.90000033, y: -0.8999999, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -149986
+  m_InstanceId: 35394
   m_LocalBounds:
     m_Center: {x: 0.00000023841858, y: 0, z: 0}
     m_Extent: {x: 0.9000001, y: 0.8999999, z: 0}

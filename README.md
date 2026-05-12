@@ -61,7 +61,7 @@ or download the Build and double click the .exe
 
 ## 🧠 About the Developer
 
-Made by **France** — ITIS student, amateur game developer, **Pojjlenders** — ITIS student, amateur game designer, **ZannaDestra** — ITIS student, amateur game developer. **Christian** — LSA student, creative designer. 
+Made by **France902** — ITIS student, amateur game developer, **Pojjlenders** — ITIS student, amateur game designer, **ZannaDestra** — ITIS student, amateur game developer. **cri0908damora-lgtm** — LSA student, creative designer. 
 This project was built as a hands-on exploration of Unity 2D mechanics: enemy wave management, melee combat, boss fight design, light and shadow system, passive animations, UI/UX.
 
 ---

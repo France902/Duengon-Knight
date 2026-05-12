@@ -68,7 +68,7 @@ This project was built as a hands-on exploration of Unity 2D mechanics: enemy wa
 
 ## 📜 License
 
-This project is open source and available under the [MIT License](LICENSE).
+This project is open source and available under the MIT License.
 
 Feel free to learn from it, remix it, or add a level where the knight fights a dragon.
 

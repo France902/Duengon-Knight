@@ -261,7 +261,7 @@ GameObject:
   - component: {fileID: 1273174554776170178}
   - component: {fileID: 5057669319875358894}
   - component: {fileID: 7683337079065167925}
-  - component: {fileID: -1776493058986231173}
+  - component: {fileID: 5814959510314628784}
   m_Layer: 3
   m_Name: Goblin
   m_TagString: Enemy
@@ -285,6 +285,7 @@ Transform:
   - {fileID: 9183328727348112087}
   - {fileID: 8115752362653518343}
   - {fileID: 274987195001912232}
+  - {fileID: 1565899656538158446}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3851997976188990070
@@ -426,7 +427,7 @@ MonoBehaviour:
   type: goblin
   playerScript: {fileID: 0}
   colliderExtender: {fileID: 3078366064904856150}
---- !u!114 &-1776493058986231173
+--- !u!114 &5814959510314628784
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -435,24 +436,85 @@ MonoBehaviour:
   m_GameObject: {fileID: 7424830540609518112}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d464c94fe8e65046a7a7d566d79cdfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shadowCaster: {fileID: 0}
+--- !u!1 &9124865907989449336
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1565899656538158446}
+  - component: {fileID: 1388124518900684769}
+  m_Layer: 3
+  m_Name: Shadow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1565899656538158446
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9124865907989449336}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7101665959824283413}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1388124518900684769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9124865907989449336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShadowGroup: 0
   m_ComponentVersion: 1
-  m_HasRenderer: 1
+  m_HasRenderer: 0
   m_UseRendererSilhouette: 1
   m_CastsShadows: 1
   m_SelfShadows: 0
   m_ApplyToSortingLayers: 00000000
   m_ShapePath:
-  - {x: -0.12059061, y: -0.25523406, z: 0}
-  - {x: -0.101578355, y: -0.014848531, z: 0}
-  - {x: 0.09859187, y: 0.01952147, z: 0}
-  - {x: 0.077266715, y: -0.23985964, z: 0}
-  m_ShapePathHash: 1363186747
+  - {x: -0.15322699, y: -0.26168603, z: 0}
+  - {x: -0.10519751, y: -0.17035732, z: 0}
+  - {x: -0.12835862, y: -0.16148593, z: 0}
+  - {x: -0.1715229, y: -0.058254704, z: 0}
+  - {x: -0.10275818, y: -0.01639081, z: 0}
+  - {x: 0.004306014, y: 0.0030419135, z: 0}
+  - {x: -0.043264106, y: 0.082262, z: 0}
+  - {x: 0.02218895, y: 0.057880346, z: 0}
+  - {x: 0.020340655, y: 0.09641883, z: 0}
+  - {x: 0.08009209, y: 0.057073887, z: 0}
+  - {x: 0.10886878, y: 0.067882806, z: 0}
+  - {x: 0.08188614, y: -0.045167543, z: 0}
+  - {x: 0.16536728, y: -0.086482026, z: 0}
+  - {x: 0.15442452, y: -0.1224903, z: 0}
+  - {x: 0.077593654, y: -0.08133766, z: 0}
+  - {x: 0.122203365, y: -0.17277683, z: 0}
+  - {x: 0.086741984, y: -0.26405445, z: 0}
+  - {x: 0.014639407, y: -0.15367788, z: 0}
+  - {x: -0.04308343, y: -0.20906903, z: 0}
+  - {x: -0.088353, y: -0.26874956, z: 0}
+  m_ShapePathHash: 951389450
   m_Mesh: {fileID: 0}
-  m_InstanceId: 53574
+  m_InstanceId: 48660
   m_LocalBounds:
-    m_Center: {x: -0.010999367, y: -0.117856294, z: 0}
-    m_Extent: {x: 0.109591246, y: 0.13737777, z: 0}
+    m_Center: {x: -0.00307782, y: -0.08616537, z: 0}
+    m_Extent: {x: 0.16844508, y: 0.1825842, z: 0}

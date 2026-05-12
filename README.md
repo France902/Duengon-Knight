@@ -58,15 +58,11 @@ or download the Build and double click the .exe
 
 ---
 
----
-
----
 
 ## 🧠 About the Developer
 
-Made by **France** — ITIS student, amateur game developer, and firm believer that three minutes is the perfect length for anything worth doing.
-
-This project was built as a hands-on exploration of Unity 2D mechanics: enemy wave management, melee combat, boss fight design, and the ancient art of *making it actually work before the deadline*.
+Made by **France** — ITIS student, amateur game developer, **Pojjlenders** — ITIS student, amateur game designer, **ZannaDestra** — ITIS student, amateur game developer. **Christian** — LSA student, creative designer. 
+This project was built as a hands-on exploration of Unity 2D mechanics: enemy wave management, melee combat, boss fight design, light and shadow system, passive animations, UI/UX.
 
 ---
 
@@ -74,15 +70,12 @@ This project was built as a hands-on exploration of Unity 2D mechanics: enemy wa
 
 This project is open source and available under the [MIT License](LICENSE).
 
-Feel free to learn from it, remix it, or add a level where the knight fights a dragon. He deserves it.
+Feel free to learn from it, remix it, or add a level where the knight fights a dragon.
 
 ---
 
 <div align="center">
 
-*"In the middle of difficulty lies opportunity."*
-*— Albert Einstein, who never faced a skeleton wave at 2am*
-
-**⚔️ Enter the dungeon. Face the wizard. Come out the other side.**
+  **⚔️ Enter the dungeon. Face the wizard. Come out the other side.**
 
 </div>

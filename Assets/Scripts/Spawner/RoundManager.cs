@@ -79,7 +79,7 @@ public class RoundManager : MonoBehaviour
 
         // Imposta il testo su "VITTORIA" e lo rende inizialmente trasparente (alpha = 0)
         roundText.gameObject.SetActive(true);
-        roundText.text = "VITTORIA";
+        roundText.text = "VICTORY";
         roundText.color = new Color(roundText.color.r, roundText.color.g, roundText.color.b, 0f);
 
         // Fa apparire il testo gradualmente
@@ -100,7 +100,7 @@ public class RoundManager : MonoBehaviour
         roundText.gameObject.SetActive(true);
 
         // Imposta il testo corretto
-        if (!isBossFight) roundText.text = (roundFought + 1) + "° ONDATA";
+        if (!isBossFight) roundText.text = (roundFought + 1) + "° wave";
         else
         {
             roundText.text = "BOSS FIGHT";

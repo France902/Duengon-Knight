@@ -1,4 +1,4 @@
-# ⚔️ Dungeon's Knight
+# ⚔️ Dungeon Knight
 
 ---
 
